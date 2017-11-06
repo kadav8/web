@@ -1,0 +1,48 @@
+@import "./styles/colors.scss";
+
+$header-height: 55px;
+$sidebar-width: 200px;
+
+.app-main {
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.app-header {
+  width: 100%;
+  height: $header-height;
+  overflow: hidden;
+  position: fixed;
+  background-color: #24292e;
+  color: $light-grey;
+}
+
+.app-content {
+  width: 100%;
+  height: 100%;
+  padding-top: $header-height;
+}
+
+.app-sidebar {
+  width: $sidebar-width;
+  height: 100%;
+  float: left;
+  border-right: 1px solid $light-grey;
+  padding-top: 1em;
+}
+
+.app-page {
+  width: -webkit-calc(100% - $sidebar-width);
+  width:    -moz-calc(100% - $sidebar-width);
+  width:         calc(100% - $sidebar-width);
+  height: 100%;
+  margin-left: $sidebar-width;
+  transition: 0.5s;
+}
+
+.app-container {
+  width: 100%;  
+  height: 100%;
+  padding: 1em;
+}
