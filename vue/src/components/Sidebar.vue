@@ -81,13 +81,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-sidebar {
-  transition: 0.5s;
-}
-
 .hidden-sidebar {
   width: 0;
-  overflow-x: hidden;
 }
 
 .sidebar-link-container {
