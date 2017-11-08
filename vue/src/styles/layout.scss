@@ -14,8 +14,8 @@ $sidebar-width: 200px;
   height: $header-height;
   position: fixed;
   overflow: hidden;
-  background-color: #24292e;
-  color: $light-grey;
+  background-color: $header-background;
+  color: $header-textcolor;
 }
 
 .app-content {
@@ -28,7 +28,7 @@ $sidebar-width: 200px;
   width: $sidebar-width;
   height: 100%;
   float: left;
-  border-right: 1px solid $light-grey;
+  border-right: 1px solid $sidebar-bordercolor;
   padding-top: 1em;
   overflow-x: hidden;
   transition: .3s;

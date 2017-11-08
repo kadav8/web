@@ -26,6 +26,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/colors.scss";
+
 .app-header-element {
   padding: 1em;
   position: relative;
