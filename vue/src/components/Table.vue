@@ -5,8 +5,7 @@
         <tr>
           <th v-for="item in headers" :key="item.key" @click="sortBy(item.key)">
             {{ item.title }}
-            <span class="arrow" :class="{'asc': (sortKey === item.key && sortOrder === 1), 'dsc': (sortKey === item.key && sortOrder === -1)}">
-            </span>
+            <span class="arrow" :class="{'asc': (sortKey === item.key && sortOrder === 1), 'dsc': (sortKey === item.key && sortOrder === -1)}"></span>
           </th>
         </tr>
       </thead>
@@ -17,6 +16,14 @@
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="100%">
+            <button class="pager-button" @click="prev"> < </button>
+            <button class="pager-button" @click="next"> > </button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </template>
@@ -34,7 +41,9 @@ export default {
   data() {
     return {
       sortKey: "",
-      sortOrder: 1
+      sortOrder: 1,
+      pageSize: 5,
+      pageNumber: 1
     };
   },
 
@@ -57,7 +66,8 @@ export default {
           return (a === b ? 0 : a > b ? 1 : -1) * sortOrder;
         });
       }
-      return data;
+      var from = (this.pageSize*(this.pageNumber-1));
+      return data.slice(from,from+this.pageSize);
     }
   },
 
@@ -67,12 +77,25 @@ export default {
         this.sortOrder = this.sortOrder * -1;
       }
       this.sortKey = key;
+    },
+    prev() {
+      this.pageNumber = this.pageNumber - 1;
+      if(this.pageNumber < 1) {
+        this.pageNumber = 1;
+      }
+    },
+    next() {
+      this.pageNumber = this.pageNumber + 1;
+      var maxPage = Math.ceil(this.data.length / this.pageNumber);
+      if(this.pageNumber > maxPage) {
+        this.pageNumber = maxPage;
+      }
     }
   }
 };
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 @import "../styles/colors.scss";
 
 table {
@@ -87,10 +110,15 @@ thead {
   color: $table-head-textcolor;
 }
 
-td, th {
+td,
+th {
   border: 1px solid $table-border-color;
   text-align: left;
   padding: 5px;
+}
+
+tfoot * {
+  text-align: right;
 }
 
 .datarow {
@@ -115,5 +143,16 @@ td, th {
 
 .arrow.dsc {
   border-top: 5px solid #fff;
+}
+
+.pager-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: $table-border-color;
+  &:hover {
+    color: grey;
+  }
 }
 </style>

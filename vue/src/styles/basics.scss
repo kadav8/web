@@ -21,6 +21,10 @@ button {
     cursor: pointer;
 }
 
+button:focus {
+    outline:0;
+}
+
 .hidden {
     display: none;
 }
