@@ -1,15 +1,18 @@
 <template>
   <div class="app-container">
-    <apptable :headers="headers" :data="datas" :defaultSortKey="defaultSortKey"></apptable>
+    <progressbar v-show="hiddenTable"></progressbar>
+    <apptable v-show="!hiddenTable" :headers="headers" :datas="datas" :defaultSortKey="defaultSortKey" :defaultPageSize="25"></apptable>
   </div>
 </template>
 
 <script>
 import http from "../http.js";
+import progressbar from "../components/ProgressBar.vue";
 import apptable from "../components/Table.vue";
+import config from "../config.js";
 
 export default {
-  components: { apptable },
+  components: { progressbar, apptable },
 
   data() {
     return {
@@ -18,108 +21,13 @@ export default {
         { title: "Name", key: "name" },
         { title: "Manufacturer", key: "manufacturer" },
         { title: "Price", key: "price" },
+        { title: "Stock", key: "stock" },
         { title: "Status", key: "status" },
-        { title: "Adding date", key: "addingDate" }
+        { title: "Adding date", key: "addDate" }
       ],
-      datas: [
-        {
-          id: "1",
-          name: "Nintendo Switch",
-          manufacturer: "Nintendo",
-          price: 120000,
-          status: "Active",
-          addingDate: "2017/03/19"
-        },
-        {
-          id: "2",
-          name: "Nintendo Switch",
-          manufacturer: "Nintendo",
-          price: 120000,
-          status: "Active",
-          addingDate: "2017/03/19"
-        },
-        {
-          id: "7",
-          name: "Nintendo Switch",
-          manufacturer: "Nintendo",
-          price: 120000,
-          status: "Active",
-          addingDate: "2017/03/19"
-        },
-        {
-          id: "8",
-          name: "Nintendo Switch",
-          manufacturer: "Nintendo",
-          price: 120000,
-          status: "Active",
-          addingDate: "2017/03/19"
-        },
-        {
-          id: "9",
-          name: "Nintendo Switch",
-          manufacturer: "Nintendo",
-          price: 120000,
-          status: "Active",
-          addingDate: "2017/03/19"
-        },
-        {
-          id: "10",
-          name: "Nintendo Switch",
-          manufacturer: "Nintendo",
-          price: 120000,
-          status: "Active",
-          addingDate: "2017/03/19"
-        },
-        {
-          id: "11",
-          name: "Nintendo Wii U",
-          manufacturer: "Nintendo",
-          price: 80000,
-          status: "Inactive",
-          addingDate: "2010/11/11"
-        },
-        {
-          id: "12",
-          name: "Nintendo Wii U",
-          manufacturer: "Nintendo",
-          price: 80000,
-          status: "Inactive",
-          addingDate: "2010/11/11"
-        },
-        {
-          id: "6",
-          name: "Nintendo Wii U",
-          manufacturer: "Nintendo",
-          price: 80000,
-          status: "Inactive",
-          addingDate: "2010/11/11"
-        },
-        {
-          id: "5",
-          name: "Nintendo Wii U",
-          manufacturer: "Nintendo",
-          price: 80000,
-          status: "Inactive",
-          addingDate: "2010/11/11"
-        },
-        {
-          id: "4",
-          name: "Nintendo Wii U",
-          manufacturer: "Nintendo",
-          price: 80000,
-          status: "Inactive",
-          addingDate: "2010/11/11"
-        },
-        {
-          id: "3",
-          name: "Nintendo Wii U",
-          manufacturer: "Nintendo",
-          price: 80000,
-          status: "Inactive",
-          addingDate: "2010/11/11"
-        }
-      ],
-      defaultSortKey: "id"
+      datas: [],
+      defaultSortKey: "id",
+      hiddenTable: true
     };
   },
 
@@ -129,9 +37,10 @@ export default {
 
   methods: {
     fetch() {
-      /*http.getProducts().then(({ data }) => {
-        this.items = data.items;
-      });*/
+      http.get(config.getAllProductsUrl).then(({ data }) => {
+        this.datas = data.items;
+        this.hiddenTable = false;
+      });
     }
   }
 };

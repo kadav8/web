@@ -1,10 +1,10 @@
 <template>
   <div class="app-sidebar" :class="{'hidden-sidebar': !isSidebarVisible}">
     <div class="sidebar-link-container" v-for="item in menuitems" :key="item.title">
-      <router-link class="sidebar-link" :class="{'router-link-exact-active': item.title === selectedMainMenu}" :to="item.path">
-        <span @click="selectedMainMenu=item.title">{{item.title}}</span>
+      <router-link class="sidebar-link" :to="item.path">
+        {{item.title}}
       </router-link>
-      <div class="sidebar-link-container" :class="{'hidden': item.title !== selectedMainMenu}" v-for="child in item.children" :key="child.title">
+      <div class="sidebar-link-container" :class="{'hidden': hiddableMenu && !isSelectedMenu(item.path)}" v-for="child in item.children" :key="child.title">
         <router-link class="sidebar-sublink" :to="item.path+child.path">
           {{child.title}}
         </router-link>
@@ -19,6 +19,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      hiddableMenu: false,
       menuitems: [
         { title: "Home", path: "/" },
         {
@@ -65,13 +66,17 @@ export default {
           path: "/settings",
           children: [{ title: "Admins", path: "/admins" }]
         }
-      ],
-      selectedMainMenu: null
+      ]
     };
   },
 
-  created() {
-    this.selectedMainMenu = this.menuitems[0].title;
+  methods: {
+    isSelectedMenu(input) {
+      if (this.$route.path === "/") {
+        return input === "/";
+      }
+      return this.$route.path.indexOf(input) === 0;
+    }
   },
 
   computed: {
@@ -91,12 +96,13 @@ export default {
 }
 
 .sidebar-link {
-  padding-left: 17px;
-  font-size: 17px;
-  color: grey;
+  padding-left: 18px;
+  font-size: 16px;
+  color: black;
   text-decoration: none;
   &:hover {
     color: black;
+    font-weight: 500;
   }
   &.router-link-exact-active {
     color: black;
@@ -106,6 +112,7 @@ export default {
 
 .sidebar-sublink {
   @extend .sidebar-link;
+  color: grey;
   font-size: 13px;
 }
 </style>

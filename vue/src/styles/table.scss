@@ -1,0 +1,98 @@
+@import "../styles/layout.scss";
+@import "../styles/colors.scss";
+@import "../styles/font-awesome/font-awesome.scss";
+.table-controller {
+    position: fixed;
+    width: 42em;
+    height: $header-height;
+    text-align: right;
+    top: 0;
+    right: 0;
+    background-color: $header-background;
+    color: $header-textcolor;
+    font-size: 14px;
+    padding: 1.1em;
+}
+
+.input-span {
+    padding-right: 15px;
+}
+
+input,
+select {
+    padding: 3px;
+    border: 1px solid $table-head-bgcolor;
+    border-radius: 3px;
+    background-color: $table-head-bgcolor;
+    outline: 0;
+}
+
+input {
+    width: 12em;
+}
+
+.pager-button {
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 18px;
+    color: $header-textcolor;
+    &:hover {
+        color: white;
+    }
+}
+
+.table-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-top: 1px solid $table-border-color;
+    border-left: 1px solid $table-border-color;
+    border-right: 1px solid $table-border-color;
+    background-color: white;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+thead {
+    background-color: $table-head-bgcolor;
+    color: $table-head-textcolor;
+}
+
+td,
+th {
+    border-bottom: 1px solid $table-border-color;
+    text-align: left;
+    padding: 3px;
+}
+
+tr:nth-child(even) {
+    background-color: $table-even-color;
+}
+
+.datarow {
+    &:hover {
+        background-color: $table-hover-color;
+    }
+}
+
+.arrow {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 0;
+    margin-left: 4px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+.arrow.asc {
+    border-bottom: 5px solid grey;
+}
+
+.arrow.dsc {
+    border-top: 5px solid grey;
+}

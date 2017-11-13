@@ -11,6 +11,7 @@
 
 <script>
 import { mapMutations } from "vuex";
+import config from "../config.js";
 
 export default {
   data() {
