@@ -3,7 +3,7 @@
     <div class="app-header-element">
       <button class="hamburger-button" @click="changeSidebarVisibility">☰</button>
     </div>
-    <div class="app-header-element">
+    <div class="app-header-element resp">
       <b>{{appname}}</b>
     </div>
   </div>
@@ -45,5 +45,11 @@ export default {
   &:hover {
     color: white;
   }
+}
+
+@media screen and (max-width: 400px) {
+    .resp {
+        display: none;
+    }
 }
 </style>

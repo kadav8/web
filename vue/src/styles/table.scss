@@ -1,6 +1,7 @@
 @import "../styles/layout.scss";
 @import "../styles/colors.scss";
 @import "../styles/font-awesome/font-awesome.scss";
+
 .table-controller {
     position: fixed;
     width: 42em;
@@ -11,10 +12,20 @@
     background-color: $header-background;
     color: $header-textcolor;
     font-size: 14px;
-    padding: 1.1em;
+    padding: 1.2em;
 }
 
-.input-span {
+@media screen and (max-width: 750px) {
+    .input-span {
+        display: none;
+    }
+    .table-controller {
+        width: 18em;
+    }
+}
+
+.input-span,
+.page-span {
     padding-right: 15px;
 }
 
@@ -41,18 +52,8 @@ input {
     }
 }
 
-.table-container {
-    overflow-x: auto;
-    overflow-y: hidden;
-    border-top: 1px solid $table-border-color;
-    border-left: 1px solid $table-border-color;
-    border-right: 1px solid $table-border-color;
-    background-color: white;
-}
-
 table {
     border-collapse: collapse;
-    width: 100%;
     font-size: 14px;
     cursor: pointer;
 }
@@ -62,11 +63,26 @@ thead {
     color: $table-head-textcolor;
 }
 
+tbody {
+    height: calc(100% - 28px);
+    display: block;
+    overflow: auto;
+}
+
+thead,
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
 td,
 th {
     border-bottom: 1px solid $table-border-color;
     text-align: left;
     padding: 3px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 tr:nth-child(even) {

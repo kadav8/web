@@ -53,6 +53,38 @@ $sidebar-width: 200px;
   padding: 0em;
 }
 
+.maxheight {
+  height: 100%;
+}
+
+.maxwidth {
+  height: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .hide800 {
+      display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hide600 {
+      display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .hide500 {
+      display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .hide400 {
+      display: none;
+  }
+}
+
 .grey-bg {
   background-color: $light-grey;
 }

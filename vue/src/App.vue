@@ -3,7 +3,7 @@
     <headbar></headbar>
     <div class="app-content">
       <sidebar></sidebar>
-      <div class="app-page" :class="{'fullpage': !isSidebarVisible}">
+      <div ref="page" class="app-page" :class="{'fullpage': !isSidebarVisible}">
         <router-view></router-view>
       </div>
     </div>
@@ -17,6 +17,12 @@ import sidebar from "./components/Sidebar.vue";
 
 export default {
   components: { headbar, sidebar },
+
+  data() {
+    return {
+      pagewidth: 0
+    };
+  },
 
   computed: {
     ...mapState([
@@ -32,5 +38,14 @@ export default {
 
 .fullpage {
   margin-left: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .app-sidebar {
+    width: 0;
+  }
+  .app-page {
+    margin-left: 0;
+  }
 }
 </style>
