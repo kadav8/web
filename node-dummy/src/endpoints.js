@@ -4,11 +4,12 @@ let router = express.Router();
 module.exports = router;
 
 router.get('/products', function(req, res) {
+    //sleepFor(200);
     var products = {
         items: []       
     };
     var i;
-    for(i = 0; i<rand(10,20); i++) {
+    for(i = 1; i<=200; i++) {
         products.items[i] = generateProduct(i);
     }
     res.json(products);
@@ -21,11 +22,17 @@ function generateProduct(id) {
         manufacturer: 'Nintendo',
         price: rand(10000,30000),
         status: ['active', 'inactive'][rand(0,1)],
-        addDate: rand(2014, 2017) + '/' + rand(10, 12) + '/' + rand(10,28)
+        addDate: rand(2014, 2017) + '/' + rand(10, 12) + '/' + rand(10,28),
+        stock: rand(100,200),
     };
     return product; 
 }
 
 function rand(min,max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function sleepFor( sleepDuration ){
+    var now = new Date().getTime();
+    while(new Date().getTime() < now + sleepDuration){} 
 }
