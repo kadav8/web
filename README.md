@@ -12,15 +12,13 @@ https://github.com/vaadin/vaadin-core/wiki/Vue.js-Integration / https://vaadin.c
 
 ---
 
+http://materializecss.com/
+
 https://purecss.io/
 
 https://bulma.io/
 
-https://imperavi.com/kube/
-
 https://www.blazecss.com/
-
-https://imperavi.com/kube/
 
 http://getskeleton.com/
 
@@ -31,7 +29,5 @@ http://mincss.com/
 https://www.w3schools.com/w3css/default.asp
 
 ---
-
-http://oddbird.net/susy/
 
 https://electron.atom.io/
