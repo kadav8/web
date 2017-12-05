@@ -1,7 +1,7 @@
 <template>
-  <div class="maxheight">
+  <div class="app-container">
     <progressbar v-show="hiddenTable"></progressbar>
-    <apptable v-show="!hiddenTable" :headers="headers" :datas="datas" :defaultSortKey="defaultSortKey" :defaultPageSize="25"></apptable>
+    <apptable v-show="!hiddenTable" :headers="headers" :datas="datas" :defaultSortKey="defaultSortKey" :defaultPageSize="50" @onRowClick="rowClick"></apptable>
   </div>
 </template>
 
@@ -10,6 +10,7 @@ import http from "../http.js";
 import config from "../config.js";
 import progressbar from "../components/ProgressBar.vue";
 import apptable from "../components/Table.vue";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   components: { progressbar, apptable },
@@ -17,17 +18,18 @@ export default {
   data() {
     return {
       headers: [
-        { title: "Id", key: "id", width: "80px" },
-        { title: "Name", key: "name" },
-        { title: "Manufacturer", key: "manufacturer", classes: "hide600" },
+        { title: "Id", key: "id", width: "50px" },
+        { title: "Name", key: "name", width: "200px" },
+        { title: "Manufacturer", key: "manufacturer", classes: "hide600", width: "200px" },
         { title: "Price", key: "price", width: "15%" },
-        { title: "Stock", key: "stock", width: "10%", classes: "hide400" },
-        { title: "Status", key: "status", width: "15%", classes: "hide400" },
-        { title: "Adding date", key: "addDate", width: "15%", classes: "hide400" }
+        { title: "Stock", key: "stock", classes: "hide400", width: "15%" },
+        { title: "Status", key: "status", classes: "hide400" },
+        { title: "Adding date", key: "addDate", classes: "hide400" }
       ],
       datas: [],
       defaultSortKey: "id",
-      hiddenTable: true
+      hiddenTable: true,
+      showModal: false
     };
   },
 
@@ -41,7 +43,13 @@ export default {
         this.datas = data.items;
         this.hiddenTable = false;
       });
+    },
+    rowClick(row) {
+      console.log(row);
     }
   }
 };
 </script>
+
+<style>
+</style>

@@ -9,8 +9,6 @@ $green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
 $white: #fff;
-$gray: #868e96;
-$gray-dark: #343a40;
 $primary: #007bff;
 $secondary: #868e96;
 $success: #28a745;
@@ -23,14 +21,20 @@ $dark: #343a40;
 $vvlight-grey: #fafafa;
 $vlight-grey: #eeebeb;
 $light-grey: #c8c9cb;
+$grey: #868e96;
+$grey-dark: #343a40;
+
 $light-black: #24292e;
 $light-purple:#563d7c;
+$vligt-yellow: #fdf7e48c;
+$ligt-yellow: #f8e5ab;
 
 $header-background: $light-black;
 $header-textcolor: $light-grey;
 $sidebar-bordercolor: $light-grey;
+
 $table-head-bgcolor: $vlight-grey;
 $table-head-textcolor: $light-black;
 $table-border-color: $light-grey;
-$table-hover-color: $vlight-grey;
-$table-even-color: $vvlight-grey;
+$table-even-color: $vligt-yellow;
+$table-hover-color: $ligt-yellow;

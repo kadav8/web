@@ -2,96 +2,97 @@
 @import "../styles/colors.scss";
 @import "../styles/font-awesome/font-awesome.scss";
 
-.table-controller {
-    position: fixed;
-    width: 42em;
-    height: $header-height;
-    text-align: right;
-    top: 0;
-    right: 0;
-    background-color: $header-background;
-    color: $header-textcolor;
+span {
     font-size: 14px;
-    padding: 1.2em;
 }
 
-@media screen and (max-width: 750px) {
-    .input-span {
-        display: none;
-    }
-    .table-controller {
-        width: 18em;
-    }
-}
-
-.input-span,
 .page-span {
     padding-right: 15px;
 }
 
-input,
-select {
-    padding: 3px;
-    border: 1px solid $table-head-bgcolor;
-    border-radius: 3px;
-    background-color: $table-head-bgcolor;
-    outline: 0;
+input {
+    width: 200px;
 }
 
-input {
-    width: 12em;
+input,
+select {
+    border: 1px solid $table-border-color;
+    padding: 3px;
+    border-radius: 3px;
 }
 
 .pager-button {
     padding-right: 10px;
     padding-left: 10px;
     font-size: 18px;
-    color: $header-textcolor;
+    color: black;
     &:hover {
-        color: white;
+        color: $grey;
     }
+}
+
+.search-container {
+    margin-bottom: 10px;
+    padding: 3px;
+    border: 1px solid $table-border-color;
+}
+
+.table-container {
+    border: 1px solid $table-border-color;
+}
+
+.pager-container {
+    margin-top: 10px;
+    padding: 3px;
+    border: 1px solid $table-border-color;
 }
 
 table {
     border-collapse: collapse;
+    table-layout: fixed;
     font-size: 14px;
     cursor: pointer;
-}
 
-thead {
-    background-color: $table-head-bgcolor;
-    color: $table-head-textcolor;
-}
+    thead {
+        background-color: $table-head-bgcolor;
+        color: $table-head-textcolor;
+    }
+    
+    tbody {
+        display: block;
+        overflow-y: scroll;
+    }
 
-tbody {
-    height: calc(100% - 28px);
-    display: block;
-    overflow: auto;
-}
+    th, td {
+        text-align: left;
+        padding: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 
-thead,
-tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
+    th:last-child {
+        border-right: 32px solid $table-head-bgcolor;
+    }  
+    
+    tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-top: 1px solid $table-border-color;
+    }
+    
+    tr:first-child {
+        border-top: none;
+    }
 
-td,
-th {
-    border-bottom: 1px solid $table-border-color;
-    text-align: left;
-    padding: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-tr:nth-child(even) {
-    background-color: $table-even-color;
-}
-
-.datarow {
-    &:hover {
-        background-color: $table-hover-color;
+    tr:nth-child(even) {
+        background-color: $table-even-color;
+    }
+    
+    .datarow {
+        &:hover {
+            background-color: $table-hover-color;
+        }
     }
 }
 
@@ -105,10 +106,23 @@ tr:nth-child(even) {
     border-right: 5px solid transparent;
 }
 
-.arrow.asc {
+.asc {
     border-bottom: 5px solid grey;
 }
 
-.arrow.dsc {
+.dsc {
     border-top: 5px solid grey;
+}
+
+.newbutton {
+    font-size: 14px;
+    border: 1px solid $light-grey;
+    padding: 2px 30px;
+    border-radius: 0px;
+    cursor: pointer;
+    background-color: $ligt-yellow; 
+}
+
+.newbutton:hover {
+    background-color: $vligt-yellow;
 }

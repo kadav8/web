@@ -12,19 +12,27 @@ export default {
         return {
             sortKey: "",
             sortOrder: 1,
-            pageSize: 20,
-            pageSizeText: "20",
+            pageSize: 50,
+            pageSizeText: "50",
             pageNumber: 1,
             maxPage: 0,
             filteredLength: 0,
-            filterKey: ""
+            filterKey: "",
+            bodyHeight: null,
         };
     },
 
     created() {
         this.sortKey = this.defaultSortKey || "";
-        this.pageSize = this.defaultPageSize || 20;
+        this.pageSize = this.defaultPageSize || 50;
         this.pageSizeText = this.pageSize;
+    },
+
+    beforeUpdate() {
+        if (this.bodyHeight == null && this.$refs.tablepage.clientHeight > 0) {
+            this.onResize();
+            window.addEventListener('resize', this.onResize);
+        }
     },
 
     computed: {
@@ -39,8 +47,8 @@ export default {
                     return Object.keys(row).some(function (key) {
                         return (
                             String(row[key])
-                            .toLowerCase()
-                            .indexOf(filterKey) > -1
+                                .toLowerCase()
+                                .indexOf(filterKey) > -1
                         );
                     });
                 });
@@ -93,6 +101,9 @@ export default {
         },
         last() {
             this.pageNumber = this.maxPage;
+        },
+        onResize() {
+            this.bodyHeight = this.$refs.tablepage.clientHeight - 105;
         }
     },
 
@@ -102,11 +113,15 @@ export default {
         },
         pageSizeText() {
             this.pageNumber = 1;
-            if (this.pageSizeText === "All") {
+            if (this.pageSizeText === "all") {
                 this.pageSize = this.filteredLength;
             } else {
                 this.pageSize = Number(this.pageSizeText);
             }
         }
+    },
+
+    beforeDestroy() {
+        window.removeEventListener('resize', this.onResize)
     }
 };

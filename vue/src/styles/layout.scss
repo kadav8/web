@@ -1,7 +1,7 @@
 @import "./colors.scss";
 
 $header-height: 55px;
-$sidebar-width: 200px;
+$sidebar-width: 175px;
 
 .app-main {
   width: 100%;
@@ -49,17 +49,7 @@ $sidebar-width: 200px;
   overflow: inherit;
 }
 
-.nopadding {
-  padding: 0em;
-}
 
-.maxheight {
-  height: 100%;
-}
-
-.maxwidth {
-  height: 100%;
-}
 
 @media screen and (max-width: 800px) {
   .hide800 {
@@ -85,6 +75,3 @@ $sidebar-width: 200px;
   }
 }
 
-.grey-bg {
-  background-color: $light-grey;
-}

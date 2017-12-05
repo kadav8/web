@@ -1,14 +1,17 @@
 <template>
-  <div class="app-sidebar" :class="{'hidden-sidebar': !isSidebarVisible}">
+  <div class="app-sidebar unselectable" :class="{'hidden-sidebar': !isSidebarVisible, 'unselectable': true}">
     <div class="sidebar-link-container" v-for="item in menuitems" :key="item.title">
-      <router-link class="sidebar-link" :to="item.path">
+
+      <div class="sidebar-link" @click="menuClick(item.title)">
         {{item.title}}
-      </router-link>
-      <div class="sidebar-link-container" :class="{'hidden': hiddableMenu && !isSelectedMenu(item.path)}" v-for="child in item.children" :key="child.title">
+      </div>
+
+      <div class="sidebar-link-container" :class="{'hidden': hiddableMenu && !openedMenus.includes(item.title), 'selected': selectedMenu===child.title}" v-for="child in item.children" :key="child.title">
         <router-link class="sidebar-sublink" :to="item.path+child.path">
-          {{child.title}}
+          <span @click="selectedMenu=child.title">{{child.title}}</span>
         </router-link>
       </div>
+
     </div>
   </div>
 </template>
@@ -19,11 +22,15 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      hiddableMenu: false,
+      hiddableMenu: true,
       menuitems: [
-        { title: "Home", path: "/" },
         {
-          title: "Catalog",
+          title: "HOME",
+          path: "",
+          children: [{ title: "Dashboard", path: "/" }]
+        },
+        {
+          title: "CATALOG",
           path: "/catalog",
           children: [
             { title: "Products", path: "/products" },
@@ -32,7 +39,7 @@ export default {
           ]
         },
         {
-          title: "Orders",
+          title: "ORDERS",
           path: "/orders",
           children: [
             { title: "Claims", path: "/claims" },
@@ -42,7 +49,7 @@ export default {
           ]
         },
         {
-          title: "Statistics",
+          title: "STATISTICS",
           path: "/statistics",
           children: [
             { title: "Sales", path: "/sales" },
@@ -52,7 +59,7 @@ export default {
           ]
         },
         {
-          title: "Customers",
+          title: "CUSTOMERS",
           path: "/customers",
           children: [
             { title: "Messages", path: "/messages" },
@@ -62,11 +69,13 @@ export default {
           ]
         },
         {
-          title: "Settings",
+          title: "SETTINGS",
           path: "/settings",
           children: [{ title: "Admins", path: "/admins" }]
         }
-      ]
+      ],
+      openedMenus: ["HOME"],
+      selectedMenu: ""
     };
   },
 
@@ -76,6 +85,13 @@ export default {
         return input === "/";
       }
       return this.$route.path.indexOf(input) === 0;
+    },
+    menuClick(input) {
+      if(this.openedMenus.includes(input)) {
+        this.openedMenus = this.openedMenus.filter(title => title != input);
+      } else {
+        this.openedMenus.push(input);
+      }
     }
   },
 
@@ -86,6 +102,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/colors.scss";
+
 .hidden-sidebar {
   width: 0;
 }
@@ -93,26 +111,37 @@ export default {
 .sidebar-link-container {
   padding-bottom: 5px;
   padding-top: 5px;
+  &:hover {
+    //background-color: $vlight-grey;
+  }
+  &.router-link-exact-active {
+    background-color: $vlight-grey;
+  }
+  .selected {
+    background-color: $vlight-grey;
+  }
 }
 
 .sidebar-link {
   padding-left: 18px;
-  font-size: 16px;
-  color: black;
+  font-size: 13px;
+  color: grey;
   text-decoration: none;
-  &:hover {
-    color: black;
-    font-weight: 500;
-  }
+  font-weight: 700;
   &.router-link-exact-active {
-    color: black;
-    font-weight: 500;
+    //text-decoration: underline;
   }
+  &:hover {
+    //text-decoration: underline;
+  }
+  cursor: pointer;
 }
 
 .sidebar-sublink {
   @extend .sidebar-link;
-  color: grey;
-  font-size: 13px;
+  color: #337ab7;
+  font-weight: 600;
 }
+
+
 </style>

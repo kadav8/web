@@ -3,7 +3,7 @@
     <headbar></headbar>
     <div class="app-content">
       <sidebar></sidebar>
-      <div ref="page" class="app-page" :class="{'fullpage': !isSidebarVisible}">
+      <div class="app-page" :class="{'fullpage': !isSidebarVisible}">
         <router-view></router-view>
       </div>
     </div>
@@ -18,16 +18,8 @@ import sidebar from "./components/Sidebar.vue";
 export default {
   components: { headbar, sidebar },
 
-  data() {
-    return {
-      pagewidth: 0
-    };
-  },
-
   computed: {
-    ...mapState([
-      "isSidebarVisible" // map this.isSidebarVisible to store.state.isSidebarVisible
-    ])
+    ...mapState(["isSidebarVisible"])
   }
 };
 </script>

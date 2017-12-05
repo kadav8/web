@@ -1,13 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "node-dummy"
-		},
-		{
-			"path": "vue"
+			"path": "."
 		}
 	],
-	"settings": {
-		"git.ignoreLimitWarning": true
-	}
+	"settings": {}
 }
