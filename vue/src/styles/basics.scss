@@ -10,9 +10,6 @@ body,
 html {
     height: 100%;
     width: 100%;
-}
-
-body {
     line-height: 1.5;
 }
 
@@ -54,8 +51,4 @@ button:focus {
   
 .maxwidth {
     height: 100%;
-}
-
-.grey-bg {
-    background-color: $light-grey;
 }

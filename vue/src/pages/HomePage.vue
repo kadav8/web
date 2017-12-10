@@ -11,7 +11,7 @@
         <infobox title="Today's Visits" info="12345"></infobox>
       </div>
       <div class="column">
-        <infobox title="Messages" info="210"></infobox>
+        <infobox class="last-infobox" title="Messages" info="210"></infobox>
       </div>
     </div>
   </div>

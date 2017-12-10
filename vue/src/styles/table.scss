@@ -2,6 +2,8 @@
 @import "../styles/colors.scss";
 @import "../styles/font-awesome/font-awesome.scss";
 
+$table-header-height: 45px;
+
 span {
     font-size: 14px;
 }
@@ -10,15 +12,22 @@ span {
     padding-right: 15px;
 }
 
-input {
-    width: 200px;
-}
-
 input,
 select {
     border: 1px solid $table-border-color;
     padding: 3px;
-    border-radius: 3px;
+    //border-radius: 3px;
+}
+
+input {
+    width: 200px;
+}
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding-right: 8px;
 }
 
 .pager-button {
@@ -33,8 +42,8 @@ select {
 
 .search-container {
     margin-bottom: 10px;
-    padding: 3px;
-    border: 1px solid $table-border-color;
+    padding: 8px;
+    //border: 1px solid $table-border-color;
 }
 
 .table-container {
@@ -43,55 +52,63 @@ select {
 
 .pager-container {
     margin-top: 10px;
-    padding: 3px;
-    border: 1px solid $table-border-color;
+    padding: 8px;
+    //border: 1px solid $table-border-color;
 }
 
 table {
     border-collapse: collapse;
     table-layout: fixed;
     font-size: 14px;
-    cursor: pointer;
 
-    thead {
-        background-color: $table-head-bgcolor;
-        color: $table-head-textcolor;
-    }
-    
-    tbody {
-        display: block;
-        overflow-y: scroll;
-    }
-
-    th, td {
-        text-align: left;
-        padding: 2px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    th:last-child {
-        border-right: 32px solid $table-head-bgcolor;
-    }  
-    
     tr {
         display: table;
         width: 100%;
         table-layout: fixed;
-        border-top: 1px solid $table-border-color;
-    }
-    
-    tr:first-child {
-        border-top: none;
     }
 
+    thead {
+        background-color: $table-head-bgcolor;
+        color: $table-head-textcolor;
+        border-bottom: 1px solid $table-border-color;
+        font-size: 18px;
+        tr {
+            height: $table-header-height;
+            border-right-color: $table-head-bgcolor;
+            border-right-style: solid;
+            th {
+                font-weight: 400;
+            }
+        }
+    }
+    
+    tbody {
+        display: block;
+        overflow-y: auto;
+        tr {
+            cursor: pointer;
+            border-bottom: 1px solid $table-border-color;
+        }
+        tr:last-child.scrollbar-exist {
+            border: none;
+        }
+    }
+
+    th, td {
+        text-align: left;
+        padding: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    
     tr:nth-child(even) {
-        background-color: $table-even-color;
+        //background-color: $table-even-color;
     }
     
     .datarow {
         &:hover {
             background-color: $table-hover-color;
+            color: white;
         }
     }
 }
@@ -115,14 +132,17 @@ table {
 }
 
 .newbutton {
-    font-size: 14px;
-    border: 1px solid $light-grey;
-    padding: 2px 30px;
-    border-radius: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 3px 10px;
     cursor: pointer;
-    background-color: $ligt-yellow; 
+    color: $light-black;
 }
 
 .newbutton:hover {
-    background-color: $vligt-yellow;
+    border: 1px solid $table-border-color;
+}
+
+.plus-span {
+    font-size: 22px;
 }

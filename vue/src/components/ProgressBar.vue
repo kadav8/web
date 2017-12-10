@@ -11,18 +11,20 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../styles/colors.scss";
+
 .progress-bar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: yellow;
+  height: 3px;
+  background: $ligt-yellow;
   overflow: hidden;
 }
 
 .progress-bar-indeterminate {
-  background: black;
+  background: $header-background;
 
   &:before {
     content: "";

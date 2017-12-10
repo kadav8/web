@@ -20,11 +20,11 @@ export default {
       headers: [
         { title: "Id", key: "id", width: "50px" },
         { title: "Name", key: "name", width: "200px" },
-        { title: "Manufacturer", key: "manufacturer", classes: "hide600", width: "200px" },
+        { title: "Manufacturer", key: "manufacturer", width: "200px" },
         { title: "Price", key: "price", width: "15%" },
-        { title: "Stock", key: "stock", classes: "hide400", width: "15%" },
-        { title: "Status", key: "status", classes: "hide400" },
-        { title: "Adding date", key: "addDate", classes: "hide400" }
+        { title: "Stock", key: "stock", width: "15%" },
+        { title: "Status", key: "status" },
+        { title: "Adding date", key: "addDate" }
       ],
       datas: [],
       defaultSortKey: "id",

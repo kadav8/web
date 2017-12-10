@@ -19,6 +19,7 @@ export default {
             filteredLength: 0,
             filterKey: "",
             bodyHeight: null,
+            scollbarWidth: 0
         };
     },
 
@@ -26,12 +27,19 @@ export default {
         this.sortKey = this.defaultSortKey || "";
         this.pageSize = this.defaultPageSize || 50;
         this.pageSizeText = this.pageSize;
+        
     },
 
     beforeUpdate() {
-        if (this.bodyHeight == null && this.$refs.tablepage.clientHeight > 0) {
+        if (this.bodyHeight == null && this.$refs.tablepage && this.$refs.tablepage.clientHeight > 0) {
             this.onResize();
             window.addEventListener('resize', this.onResize);
+        }
+    },
+
+    updated() {
+        if(this.$refs.tablebody && this.$refs.tablebody.offsetWidth > 0) {
+            this.scollbarWidth = this.$refs.tablebody.offsetWidth - this.$refs.tablebody.clientWidth;
         }
     },
 
@@ -103,7 +111,7 @@ export default {
             this.pageNumber = this.maxPage;
         },
         onResize() {
-            this.bodyHeight = this.$refs.tablepage.clientHeight - 105;
+            this.bodyHeight = this.$refs.tablepage.clientHeight - 155;
         }
     },
 

@@ -1,14 +1,16 @@
 <template>
-  <div class="app-sidebar unselectable" :class="{'hidden-sidebar': !isSidebarVisible, 'unselectable': true}">
+  <div class="app-sidebar unselectable" :class="{'hidden-sidebar': !isSidebarVisible}">
     <div class="sidebar-link-container" v-for="item in menuitems" :key="item.title">
 
-      <div class="sidebar-link" @click="menuClick(item.title)">
+      <div class="sidebar-link" @click="menuClick(item.path)">
         {{item.title}}
       </div>
 
-      <div class="sidebar-link-container" :class="{'hidden': hiddableMenu && !openedMenus.includes(item.title), 'selected': selectedMenu===child.title}" v-for="child in item.children" :key="child.title">
+      <div class="sidebar-sublink-container" 
+        :class="{'hidden': hiddableMenu && !openedMenus.includes(item.path), 'selected': selectedMenu===item.path+child.path}" 
+        v-for="child in item.children" :key="child.title">
         <router-link class="sidebar-sublink" :to="item.path+child.path">
-          <span @click="selectedMenu=child.title">{{child.title}}</span>
+          <span @click="selectedMenu=item.path+child.path">{{child.title}}</span>
         </router-link>
       </div>
 
@@ -25,12 +27,12 @@ export default {
       hiddableMenu: true,
       menuitems: [
         {
-          title: "HOME",
+          title: "Home",
           path: "",
           children: [{ title: "Dashboard", path: "/" }]
         },
         {
-          title: "CATALOG",
+          title: "Catalog",
           path: "/catalog",
           children: [
             { title: "Products", path: "/products" },
@@ -39,7 +41,7 @@ export default {
           ]
         },
         {
-          title: "ORDERS",
+          title: "Orders",
           path: "/orders",
           children: [
             { title: "Claims", path: "/claims" },
@@ -49,7 +51,7 @@ export default {
           ]
         },
         {
-          title: "STATISTICS",
+          title: "Statistics",
           path: "/statistics",
           children: [
             { title: "Sales", path: "/sales" },
@@ -59,7 +61,7 @@ export default {
           ]
         },
         {
-          title: "CUSTOMERS",
+          title: "Customers",
           path: "/customers",
           children: [
             { title: "Messages", path: "/messages" },
@@ -69,23 +71,32 @@ export default {
           ]
         },
         {
-          title: "SETTINGS",
+          title: "Settings",
           path: "/settings",
           children: [{ title: "Admins", path: "/admins" }]
         }
       ],
-      openedMenus: ["HOME"],
-      selectedMenu: ""
+      openedMenus: [],
+      selectedMenu: null
     };
   },
 
+  mounted () {
+    let path = window.location.hash.substring(1);
+    let main = path.split("/")[1];
+    if(main === "") {
+      this.openedMenus.push(main);
+    } else {
+      this.openedMenus.push("/"+main);
+    }
+    this.selectedMenu = path;    
+  },
+
+  computed: {
+    ...mapState(["isSidebarVisible"])
+  },
+
   methods: {
-    isSelectedMenu(input) {
-      if (this.$route.path === "/") {
-        return input === "/";
-      }
-      return this.$route.path.indexOf(input) === 0;
-    },
     menuClick(input) {
       if(this.openedMenus.includes(input)) {
         this.openedMenus = this.openedMenus.filter(title => title != input);
@@ -93,16 +104,16 @@ export default {
         this.openedMenus.push(input);
       }
     }
-  },
-
-  computed: {
-    ...mapState(["isSidebarVisible"])
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../styles/colors.scss";
+
+.app-sidebar {
+  //border-right: 1px solid $sidebar-bordercolor;
+}
 
 .hidden-sidebar {
   width: 0;
@@ -111,37 +122,30 @@ export default {
 .sidebar-link-container {
   padding-bottom: 5px;
   padding-top: 5px;
+}
+
+.sidebar-sublink-container {
+  padding-bottom: 5px;
+  padding-top: 5px;
   &:hover {
-    //background-color: $vlight-grey;
-  }
-  &.router-link-exact-active {
     background-color: $vlight-grey;
   }
-  .selected {
-    background-color: $vlight-grey;
-  }
+}
+.selected {
+  background-color: $vlight-grey;
 }
 
 .sidebar-link {
   padding-left: 18px;
-  font-size: 13px;
-  color: grey;
+  font-size: 14px;
   text-decoration: none;
-  font-weight: 700;
-  &.router-link-exact-active {
-    //text-decoration: underline;
-  }
-  &:hover {
-    //text-decoration: underline;
-  }
   cursor: pointer;
+  font-weight: 600;
 }
 
 .sidebar-sublink {
   @extend .sidebar-link;
-  color: #337ab7;
-  font-weight: 600;
+  color: $light-black;
+  font-weight: 500;
 }
-
-
 </style>

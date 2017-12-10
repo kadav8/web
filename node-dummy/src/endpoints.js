@@ -4,7 +4,7 @@ let router = express.Router();
 module.exports = router;
 
 router.get('/products', function(req, res) {
-    //sleepFor(200);
+    //sleepFor(500);
     var products = {
         items: []       
     };

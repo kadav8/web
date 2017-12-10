@@ -3,22 +3,23 @@
 
     <div v-show="datas.length > 0" class="search-container">
       <span> Search: <input name="query" v-model="filterKey"> </span>
-      <span style="float: right"><button class="newbutton">+ Add</button></span>
+      <span style="float: right"><button class="newbutton"><span class="plus-span">+</span>Add</button></span>
     </div>
 
     <div class="table-container">
       <table>
         <thead>
-          <tr>
+          <tr :style="{ 'border-right-width': scollbarWidth*2 + 'px' }">
             <th v-for="item in headers" :key="item.key" @click="sortBy(item.key)" :style="{ width: item.width }" :class=item.classes>
               {{ item.title }}
               <span class="arrow" :class="{'asc': (sortKey === item.key && sortOrder === 1), 'dsc': (sortKey === item.key && sortOrder === -1)}"></span>
             </th>
           </tr>
         </thead>
-        <tbody :style="{ height: bodyHeight + 'px' }">
-          <tr class="datarow" v-for="(entry, index) in filteredData" :key="index" @click="$emit('onRowClick', entry)">
-            <td v-for="header in headers" :key="header.key" :style="{ width: header.width  }" :class=header.classes>
+        <tbody ref="tablebody" :style="{ height: bodyHeight + 'px' }">
+          <tr class="datarow" v-for="(entry, index) in filteredData" :key="index" @click="$emit('onRowClick', entry)"
+            :class="{'scrollbar-exist': scollbarWidth>0 }">
+            <td v-for="header in headers" :key="header.key" :style="{ width: header.width  }">
               {{ entry[header.key] }}
             </td>
           </tr>

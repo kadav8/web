@@ -25,18 +25,22 @@ export default {
 .infobox {
   background-color: $ligt-yellow;
   padding: 20px;
-  margin: 20px;
+  margin-right: 20px;
+}
+
+.last-infobox {
+  margin-right: 0px;
 }
 
 .title {
-  font-size: 12px;
-  color: black;
-  font-weight: 600;
+  font-size: 20px;
+  color: white;
+  font-weight: 300;
 }
 
 .info {
-  font-size: 40px;
-  color: black;
-  font-weight: 600;
+  font-size: 50px;
+  color: white;
+  font-weight: 500;
 }
 </style>
