@@ -29,12 +29,12 @@ export default {
     return {
       headers: [
         { title: "Id", key: "id", width: "50px" },
-        { title: "Name", key: "name", width: "200px" },
-        { title: "Manufacturer", key: "manufacturer", width: "200px" },
-        { title: "Price", key: "price", width: "15%" },
-        { title: "Stock", key: "stock", width: "15%" },
+        { title: "Customer Name", key: "customerName" },
         { title: "Status", key: "status" },
-        { title: "Adding date", key: "addDate" }
+        { title: "Total", key: "total", bclasses: 'total', fix: '$' },
+        { title: "Order Date", key: "orderDate" },
+        { title: "Payment", key: "payment" },
+        { title: "Delivery", key: "delivery" }
       ],
       datas: [],
       defaultSortKey: "id",
@@ -48,18 +48,18 @@ export default {
 
   methods: {
     fetch() {
-      http.get(config.getAllProductsUrl).then(({ data }) => {
+      http.get(config.getAllArhivedUrl).then(({ data }) => {
         this.datas = data.items;
         this.hiddenTable = false;
       });
-    },
-    rowClick(row) {
-      console.log(row);
     }
   }
 };
 </script>
 
 <style>
-
+.total {
+    color: green;
+    font-weight: 700;
+}
 </style>

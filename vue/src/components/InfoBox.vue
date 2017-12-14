@@ -23,7 +23,8 @@ export default {
 @import "../styles/colors.scss";
 
 .infobox {
-  background-color: $ligt-yellow;
+  background-color: $vlight-grey;
+  border: 1px solid $light-grey;
   padding: 20px;
   margin-right: 20px;
 }
@@ -34,13 +35,13 @@ export default {
 
 .title {
   font-size: 20px;
-  color: white;
+  color: black;
   font-weight: 300;
 }
 
 .info {
   font-size: 50px;
-  color: white;
+  color: black;
   font-weight: 500;
 }
 </style>

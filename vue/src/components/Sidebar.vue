@@ -76,7 +76,7 @@ export default {
           children: [{ title: "Admins", path: "/admins" }]
         }
       ],
-      openedMenus: [],
+      openedMenus: [""],
       selectedMenu: null
     };
   },
