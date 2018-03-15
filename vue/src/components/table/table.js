@@ -24,7 +24,8 @@ export default {
             filterKey: "",
             bodyHeight: null,
             scollbarWidth: 0,
-            selectedRows: []
+            selectedRows: [],
+            selectedRowIds: []
         };
     },
 
@@ -49,7 +50,6 @@ export default {
 
     computed: {
         filteredData() {
-            console.log("filtering and sorting...");
             var filterKey = this.filterKey && this.filterKey.toLowerCase();
             var sortKey = this.sortKey;
             var sortOrder = this.sortOrder;
@@ -117,23 +117,28 @@ export default {
         onResize() {
             this.bodyHeight = this.$refs.tablepage.clientHeight - 155;
         },
-        onRowSelected(id) {
+        onRowSelected(entry) {
+            var id = entry.id;
             if(this.selectable) {
-                if(this.selectedRows.includes(id)) {
-                    this.selectedRows = this.selectedRows.filter(t => t != id);
+                if(this.selectedRowIds.includes(id)) {
+                    this.selectedRowIds = this.selectedRowIds.filter(t => t != id);
+                    this.selectedRows = this.selectedRows.filter(r => r.id != id);
                 } else {
-                    this.selectedRows.push(id);
+                    this.selectedRowIds.push(id);
+                    this.selectedRows.push(entry);
                 }
             }
         },
         clearSelectedRows() {
+            this.selectedRowIds = [];
             this.selectedRows = [];
         },
         selectAllRows() {
             if(this.selectable) {
                 this.filteredData.forEach(element => {
-                    if(!this.selectedRows.includes(element.id)) {
-                        this.selectedRows.push(element.id)
+                    if(!this.selectedRowIds.includes(element.id)) {
+                        this.selectedRowIds.push(element.id)
+                        this.selectedRows.push(element)
                     }
                 });
             }

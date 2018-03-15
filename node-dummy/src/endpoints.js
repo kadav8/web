@@ -51,6 +51,7 @@ function generateOrders(id, status) {
             orderDate: rand(2014, 2017) + '/' + rand(10, 12) + '/' + rand(10,28),
             payment: ['Bank', 'Check', 'Cash'][rand(0,2)],
             delivery: ['Budapest', 'Szeged', 'Győr'][rand(0,2)],
+            email:  ['harry7@hogwarts.com', 'house@gmail.com', 'hermione@hogwarts.com', 'tyrion@westeros.org', 'fiona@gmail.com'][rand(0,4)],
         };
     } else {
         order = {
@@ -61,6 +62,7 @@ function generateOrders(id, status) {
             orderDate: rand(2014, 2017) + '/' + rand(10, 12) + '/' + rand(10,28),
             payment: ['Bank', 'Check', 'Cash'][rand(0,2)],
             delivery: ['Budapest', 'Szeged', 'Győr'][rand(0,2)],
+            email:  ['harry7@hogwarts.com', 'house@gmail.com', 'hermione@hogwarts.com', 'tyrion@westeros.org', 'fiona@gmail.com'][rand(0,4)],
         };
     }
     return order; 
