@@ -7,6 +7,8 @@
         <router-view></router-view>
       </div>
     </div>
+    <notification></notification>
+    <chat_window></chat_window>
   </div>
 </template>
 
@@ -14,9 +16,11 @@
 import { mapState } from "vuex";
 import headbar from "./components/Headbar.vue";
 import sidebar from "./components/Sidebar.vue";
+import notification from './components/Notification.vue'
+import chat_window from "./components/ChatWindow.vue";
 
 export default {
-  components: { headbar, sidebar },
+  components: { headbar, sidebar, notification, chat_window },
 
   computed: {
     ...mapState(["isSidebarVisible"])

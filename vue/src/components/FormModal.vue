@@ -3,12 +3,15 @@
       <div class="modal-content">
         <form v-for="(field, index) in fields" :key="index">
           <div class="form-group">
-            <input type="field.type" required="required" v-model="formdata[field.key]" />
+            <input v-show="field.type!='select'" type="field.type" required="required" v-model="formdata[field.key]" />
+            <select v-show="field.type==='select'" v-model="formdata[field.key]">
+                <option v-for="(s,i) in field.selects" :key="i">{{s}}</option>
+            </select>
             <label class="control-label" for="input">{{field.title}}</label><i class="bar"></i>
             <div class="invalid" v-show="validation[field.key] != null">{{validation[field.key]}}</div>
           </div>
         </form>
-
+        
         <div class="button-container">
           <button class="button" type="button" @click="submit"><span>Submit</span></button>
           <button class="button" type="button" @click="cancel"><span>Cancel</span></button>

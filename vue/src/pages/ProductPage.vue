@@ -57,13 +57,14 @@ export default {
         { title: "Price", key: "price", type: "text" },
         { title: "Stock", key: "stock", type: "text" },
         { title: "Status", key: "status", type: "text" },
-        { title: "Adding date", key: "addDate", type: "text" }
+        { title: "Adding date", key: "addDate", type: "text" },
+        { title: "Gender", key: "gender", type: "select", selects: ["Male", "Female"], validate: "required" }
       ],
       formdata: {},
       defaultSortKey: "id",
       hiddenTable: true,
       show_modal: false,
-      selectedRow: null
+      selectedRow: null,
     };
   },
 
@@ -90,6 +91,7 @@ export default {
       this.show_modal = true;
     },
     deleteClick() {
+      this.$alertError('A törlés még nem működik!')
     },
     addClick() {
       this.formdata = {};
@@ -97,6 +99,7 @@ export default {
     },
     submitClick() {
       this.show_modal = false;
+      this.$alertSuccess('Sikeres elem felvétel!')
     }
   }
 };

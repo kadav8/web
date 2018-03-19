@@ -83,8 +83,7 @@
   </div>
 </template>
 
-<script src="table.js">
-</script>
+<script src="table.js"></script>
 
 <style lang="scss" scoped>
 @import "table.scss";
