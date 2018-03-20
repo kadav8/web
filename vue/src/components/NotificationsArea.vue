@@ -1,11 +1,11 @@
 <template>
-    <div class="alert-wrap">
-        <transition-group name="slide-fade" tag="div">
-            <div :class="item.type" role="alert" :key="index" v-for="(item, index) in notifications" @click="hide(item)">
-                <span> {{item.message}} </span>
-            </div>
-        </transition-group>
-    </div>
+  <div class="notifications-wrapper">
+    <transition-group name="slide-fade" tag="div">
+      <div :class="item.type" role="alert" :key="index" v-for="(item, index) in notifications" @click="hide(item)">
+        <span> {{item.message}} </span>
+      </div>
+    </transition-group>
+  </div>
 </template>
 
 <script>
@@ -17,11 +17,11 @@ export default {
   },
   methods: {
     hide(item) {
-        for (let i = 0; i < this.notifications.length; i++) {
-          if (this.notifications[i] === item) {
-            this.notifications.splice(i, 1)
-          }
+      for (let i = 0; i < this.notifications.length; i++) {
+        if (this.notifications[i] === item) {
+          this.notifications.splice(i, 1);
         }
+      }
     }
   }
 };
@@ -30,6 +30,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "../styles/colors.scss";
+
+.notifications-wrapper {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 9999;
+}
 
 .alert-success {
   background-color: $green;
@@ -49,13 +56,6 @@ export default {
   color: white;
   border-radius: 4px;
   margin-bottom: 10px;
-}
-
-.alert-wrap {
-  position: fixed;
-  right: 25px;
-  bottom: 25px;
-  z-index: 9999;
 }
 
 .fade-enter-active,

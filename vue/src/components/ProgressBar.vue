@@ -1,14 +1,8 @@
 <template>
-    <div class="progress-bar">
-        <div class="progress-bar-indeterminate"></div>
-    </div>
+  <div class="progress-bar">
+    <div class="progress-bar-indeterminate"></div>
+  </div>
 </template>
-
-<script>
-export default {
-  name: "progress-bar"
-};
-</script>
 
 <style lang="scss">
 @import "../styles/colors.scss";

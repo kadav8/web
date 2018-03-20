@@ -1,15 +1,18 @@
 <template>
-    <div class="chat-wrap" :class="{ 'shorter-wrap': !showContent }">
-        <div class="chat-header" @click="showContent=!showContent">
-            chat
-        </div>
-        <div v-show="showContent" class="chat-content">
-            <div class="carea">
-                <div class="message" :style="{ width: item.length*5 + 100 + 'px' }" :key="index" v-for="(item, index) in msg"> {{item}} </div>
-            </div>
-            <div class="tarea" contenteditable="true" @keyup.enter="submit"></div>
-        </div>
+  <div class="chat-wrapper" :class="{ 'shorter-wrapper': !showContent }">
+    <div class="chat-header" @click="showContent=!showContent">
+      {{headerText}}
     </div>
+    <div class="chat-content" v-show="showContent">
+      <div class="messages-area">
+        <div class="message" :key="index" v-for="(item, index) in msg">
+          <strong>{{item.user}}</strong>
+          <span class="time-span">{{item.time}}</span>
+          <br/> {{item.text}} </div>
+      </div>
+      <div class="textbox-area" contenteditable="true" @keyup.enter="submit"></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -19,14 +22,24 @@ export default {
   data() {
     return {
       showContent: true,
+      headerText: "chat",
       actual: "",
-      msg: ["Te vagy az?", "Nem!"]
+      msg: [
+        { user: "Harry", text: "Te vagy az?", time: "2017/01/12 13:20" },
+        { user: "Steve", text: "Nem!", time: "2017/01/12 13:23" },
+        { user: "Harry", text: "Akkor meg ki vagy? Velem ne szórakozz, mert megbánod! Meg fogod bánni!", time: "2017/01/12 13:25" }
+      ],
+      username: "Harry"
     };
   },
 
   methods: {
     submit(event) {
-      this.msg.push(event.target.innerText.trim());
+      this.msg.push({
+        user: this.username,
+        text: event.target.innerText.trim(),
+        time: "2017/01/12 13:20"
+      });
       event.target.innerText = "";
     }
   }
@@ -36,18 +49,18 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/colors.scss";
 
-.chat-wrap {
+.chat-wrapper {
   position: fixed;
+  width: 400px;
+  font-size: 12px;
   right: 50px;
   bottom: 0px;
   z-index: 8888;
   border: 1px solid $light-grey;
-  width: 400px;
   border-radius: 4px 4px 0px 0px;
-  font-size: 12px;
 }
 
-.shorter-wrap {
+.shorter-wrapper {
   width: 150px;
 }
 
@@ -66,29 +79,25 @@ export default {
   background-color: white;
 }
 
-.carea {
+.messages-area {
   padding: 2px;
   height: 360px;
   overflow-y: auto;
   overflow-x: hidden;
 }
+.message {
+  word-wrap: break-word;
+  padding: 2px;
+}
 
-.tarea {
+.time-span {
+  font-size: 10px;
+  color: $grey;
+}
+
+.textbox-area {
   border-top: 1px solid $light-grey;
   padding: 2px;
   height: 40px;
-}
-
-textarea {
-  border: 0px solid $light-grey;
-}
-
-.message {
-  background-color: $vvlight-grey;  
-  word-wrap: break-word;
-  padding: 5px;
-  border-radius: 10px;
-  margin: 3px;
-  max-width: 385px;
 }
 </style>

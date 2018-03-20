@@ -7,20 +7,20 @@
         <router-view></router-view>
       </div>
     </div>
-    <notification></notification>
+    <notifications></notifications>
     <chat_window></chat_window>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import headbar from "./components/Headbar.vue";
-import sidebar from "./components/Sidebar.vue";
-import notification from './components/Notification.vue'
+import headbar from "./components/HeadBar.vue";
+import sidebar from "./components/SideBar.vue";
+import notifications from "./components/NotificationsArea.vue";
 import chat_window from "./components/ChatWindow.vue";
 
 export default {
-  components: { headbar, sidebar, notification, chat_window },
+  components: { headbar, sidebar, notifications, chat_window },
 
   computed: {
     ...mapState(["isSidebarVisible"])

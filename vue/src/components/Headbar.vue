@@ -3,7 +3,7 @@
     <div class="app-header-element">
       <button class="hamburger-button" @click="changeSidebarVisibility">☰</button>
     </div>
-    <div class="app-header-element resp">
+    <div class="app-header-element responsive">
       <b>{{appname}}</b>
     </div>
   </div>
@@ -53,8 +53,8 @@ export default {
 }
 
 @media screen and (max-width: 400px) {
-    .resp {
-        display: none;
-    }
+  .responsive {
+    display: none;
+  }
 }
 </style>

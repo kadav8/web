@@ -1,8 +1,8 @@
 <template>
-    <div class="infobox">
-        <div class="title">{{title}}</div>
-        <div class="info">{{info}}</div>
-    </div>
+  <div class="infobox">
+    <div class="title">{{title}}</div>
+    <div class="info">{{info}}</div>
+  </div>
 </template>
 
 <script>
