@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isSidebarVisible: true,
-    notifications: []
+    notifications: [],
+    lastOpenedProjects: [],
+    lastOpenedIssues: []
   },
   
   mutations: {
@@ -22,6 +24,32 @@ export default new Vuex.Store({
           }
         }
       }, 5000);
+    },
+    pushLastOpenedProjects(state, project) {
+      var temp = [];
+      temp.push(project);
+      for (let i = 0; i < state.lastOpenedProjects.length; i++) {
+        if(state.lastOpenedProjects[i].id != project.id) {
+          temp.push(state.lastOpenedProjects[i]);
+        }
+        if(temp.length > 9) {
+          break;
+        }
+      }
+      state.lastOpenedProjects = temp;
+    },
+    pushLastOpenedIssues(state, project) {
+      var temp = [];
+      temp.push(project);
+      for (let i = 0; i < state.lastOpenedIssues.length; i++) {
+        if(state.lastOpenedIssues[i].id != project.id) {
+          temp.push(state.lastOpenedIssues[i]);
+        }
+        if(temp.length > 9) {
+          break;
+        }
+      }
+      state.lastOpenedIssues = temp;
     }
   }
 })

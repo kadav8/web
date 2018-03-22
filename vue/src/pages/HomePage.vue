@@ -2,16 +2,16 @@
   <div class="app-container">
     <div class="row">
       <div class="column">
-        <infobox title="New Orders" info="112"></infobox>
+        <infobox title="Projects" info="25"></infobox>
       </div>
       <div class="column">
-        <infobox title="Today's Sales" info="223"></infobox>
+        <infobox title="All Active Issues" info="120"></infobox>
       </div>
       <div class="column">
-        <infobox title="Today's Visits" info="12345"></infobox>
+        <infobox title="My Active Issues" info="2"></infobox>
       </div>
       <div class="column">
-        <infobox class="last-infobox" title="Messages" info="210"></infobox>
+        <infobox class="last-infobox" title="Bugs" info="12"></infobox>
       </div>
     </div>
   </div>

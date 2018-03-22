@@ -4,7 +4,7 @@
       {{headerText}}
     </div>
     <div class="chat-content" v-show="showContent">
-      <div class="messages-area">
+      <div class="messages-area" id="messages-area-id">
         <div class="message" :key="index" v-for="(item, index) in msg">
           <strong>{{item.user}}</strong>
           <span class="time-span">{{item.time}}</span>
@@ -21,7 +21,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      showContent: true,
+      showContent: false,
       headerText: "chat",
       actual: "",
       msg: [
@@ -41,6 +41,11 @@ export default {
         time: "2017/01/12 13:20"
       });
       event.target.innerText = "";
+      this.scrollToBottom();
+    },
+    scrollToBottom() {
+      var element = document.getElementById("messages-area-id");
+      element.scrollTop = element.scrollHeight;
     }
   }
 };

@@ -9,69 +9,55 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router();
 module.exports = router;
 
-router.get('/products', function (req, res) {
+router.get('/projects', function (req, res) {
     //sleepFor(200);
-    var products = {
+    var projects = {
+        items: []
+    };
+    var i;
+    for (i = 1; i <= 20; i++) {
+        projects.items[i] = generateProjects(i);
+    }
+    res.json(projects);
+});
+
+router.get('/issues', function (req, res) {
+    //sleepFor(200);
+    var is = {
         items: []
     };
     var i;
     for (i = 1; i <= 200; i++) {
-        products.items[i] = generateProduct(i);
+        is.items[i] = generateIssues(i);
     }
-    res.json(products);
+    res.json(is);
 });
 
-router.get('/orders/:status', function (req, res) {
-    var orders = {
-        items: []
-    };
-    var i;
-    var s = req.params.status;
-    for (i = 1; i <= rand(50, 200); i++) {
-        orders.items[i] = generateOrders(i, s);
-    }
-    res.json(orders);
-});
-
-function generateProduct(id) {
-    var product = {
+function generateProjects(id) {
+    var project = {
         id: id,
-        name: 'Super Mario ' + id,
-        manufacturer: 'Nintendo',
-        price: rand(10000, 30000),
+        name: 'Project ' + id,
+        type: 'Business',
+        lead: ['Albus Dumbledore', 'Yoda'][rand(0, 1)],
         status: ['Active', 'Active', 'Active', 'Active', 'Active', 'Inactive'][rand(0, 5)],
         addDate: rand(2014, 2017) + '/' + rand(10, 12) + '/' + rand(10, 28),
-        stock: rand(100, 200)
+        client: ['Apple', 'Disney'][rand(0, 1)]
     };
-    return product;
+    return project;
 }
 
-function generateOrders(id, status) {
-    var order;
-    if (status == null || status === 'all') {
-        order = {
-            id: id,
-            customerName: ['Harry Potter', 'Gregory House', 'Hermione Granger', 'Tyrion Lannister', 'Fiona Gallagher'][rand(0, 4)],
-            status: ['Claim', 'Completed', 'Returned', 'Archived'][rand(0, 3)],
-            total: rand(100000, 3000000),
-            orderDate: rand(2014, 2017) + '/' + rand(10, 12) + '/' + rand(10, 28),
-            payment: ['Bank', 'Check', 'Cash'][rand(0, 2)],
-            delivery: ['Budapest', 'Szeged', 'Győr'][rand(0, 2)],
-            email: ['harry7@hogwarts.com', 'house@gmail.com', 'hermione@hogwarts.com', 'tyrion@westeros.org', 'fiona@gmail.com'][rand(0, 4)]
-        };
-    } else {
-        order = {
-            id: id,
-            customerName: ['Harry Potter', 'Gregory House', 'Hermione Granger', 'Tyrion Lannister', 'Fiona Gallagher'][rand(0, 4)],
-            status: status,
-            total: rand(100000, 3000000),
-            orderDate: rand(2014, 2017) + '/' + rand(10, 12) + '/' + rand(10, 28),
-            payment: ['Bank', 'Check', 'Cash'][rand(0, 2)],
-            delivery: ['Budapest', 'Szeged', 'Győr'][rand(0, 2)],
-            email: ['harry7@hogwarts.com', 'house@gmail.com', 'hermione@hogwarts.com', 'tyrion@westeros.org', 'fiona@gmail.com'][rand(0, 4)]
-        };
-    }
-    return order;
+function generateIssues(id) {
+    var is = {
+        id: id,
+        name: 'Issue ' + id,
+        summary: ['Upgrade spring boot version', 'Clean the code', 'Richtext editor for issue description', 'Remove Id field', 'Entity does not load', 'Null Pointer Exception'][rand(0, 5)],
+        priority: ['High', 'Medium', 'Low'][rand(0, 2)],
+        type: ['Bug', 'New Feature'][rand(0, 1)],
+        status: ['Todo', 'In Progress', 'Under Review', 'Done', 'Cancelled'][rand(0, 4)],
+        addDate: rand(2014, 2017) + '/' + rand(10, 12) + '/' + rand(10, 28),
+        project: ['Project 1', 'Project 2', 'Project 3', 'Project 4', 'Project 5', 'Project 6'][rand(0, 5)]
+    };
+    return is;
 }
 
 function rand(min, max) {

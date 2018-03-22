@@ -1,9 +1,6 @@
 export default {
-  appName: 'Application',
+  appName: 'Issue Tracker',
   apiBaseUrl: 'http://localhost:3000/api',
-  getAllProductsUrl: '/products',
-  getAllClaimsUrl: '/orders/claim',
-  getAllCompletedUrl: '/orders/completed',
-  getAllReturnedUrl: '/orders/returned',
-  getAllArhivedUrl: '/orders/arhived'
+  getAllProjectsUrl: '/projects',
+  getAllIssuesUrl: '/issues'
 }

@@ -2,18 +2,6 @@
 @import "../../styles/colors.scss";
 @import "../../styles/font-awesome/font-awesome.scss";
 
-/*
-$table-head-bgcolor: $vlight-grey;
-$table-head-textcolor: $light-black;
-$table-border-color: $light-grey;
-$arrow-color: $grey;
-
-$table-head-bgcolor: $light-blue;
-$table-head-textcolor: white;
-$table-border-color: $light-grey;
-$arrow-color: white;
-*/
-
 $table-head-bgcolor: $vlight-grey;
 $table-head-textcolor: $light-black;
 $table-border-color: $light-grey;
@@ -60,7 +48,7 @@ select {
 .search-container {
     margin-bottom: 10px;
     padding: 8px;
-    //border: 1px solid $table-border-color;
+    border: 1px solid $table-border-color;
 }
 
 .table-container {
@@ -70,7 +58,7 @@ select {
 .pager-container {
     margin-top: 10px;
     padding: 8px;
-    //border: 1px solid $table-border-color;
+    border: 1px solid $table-border-color;
 }
 
 table {
@@ -124,9 +112,7 @@ table {
         overflow: hidden;
     }
     
-    tr:nth-child(even) {
-        //background-color: $table-even-color;
-    }
+    /*tr:nth-child(even) {}*/
     
     .datarow {
         &:hover {
@@ -135,12 +121,12 @@ table {
     }
 
     .selectedRow {
-        background-color: $light-blue;
+        background-color: $vligt-yellow;
         .activeStatus {
-            color: black;
+            //color: black;
         }
         .inactiveStatus {
-            color: black;
+            //color: black;
         }
     }
 }

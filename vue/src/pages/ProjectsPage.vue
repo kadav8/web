@@ -6,16 +6,20 @@
       v-show="!hiddenTable" 
       :headers="headers" 
       :datas="datas" 
+      :filters="filters"
       :defaultSortKey="defaultSortKey" 
       :defaultPageSize="50"
       :selectable="true"
       :deletable="true"
       :editable="true"
       :coloredStatus="true"
+      :clickableCells="true"
       @onRowClick="rowClick"
+      @onOpenClick="openClick"
       @onEditClick="editClick"
       @onDeleteClick="deleteClick"
-      @onAddClick="addClick">
+      @onAddClick="addClick"
+      @onCellClick="cellClick">
       </apptable>
 
     <form_modal 
@@ -29,6 +33,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import http from "../http.js";
 import config from "../config.js";
 import progressbar from "../components/ProgressBar.vue";
@@ -41,31 +46,31 @@ export default {
   data() {
     return {
       headers: [
-        { title: "Id", key: "id", width: "50px" },
-        { title: "Customer Name", key: "customerName" },
+        { title: "Id", key: "id", width: "50px", prefix: '#' },
+        { title: "Name", key: "name", bclasses: 'name-column' },
+        { title: "Lead", key: "lead", bclasses: 'bold' },
+        { title: "Type", key: "type" },
+        { title: "Client", key: "client" },
         { title: "Status", key: "status" },
-        { title: "Total", key: "total", bclasses: 'total', fix: '$' },
-        { title: "Order Date", key: "orderDate" },
-        { title: "Payment", key: "payment" },
-        { title: "Delivery", key: "delivery" },
-        { title: "Email", key: "email" }
+        { title: "Adding date", key: "addDate" }
       ],
       datas: [],
+      filters: [
+        { title: "Status", key: "status", selects: ["Active", "Inactive"] }
+      ],
       formfields: [
         { title: "Id", key: "id", type: "text", validate: "required, numeric" },
-        { title: "Customer Name", key: "customerName", type: "text", validate: "required, min(5)" },
-        { title: "Status", key: "status", type: "text", validate: "required, max(10)" },
-        { title: "Total", key: "total", type: "text" },
-        { title: "Order Date", key: "orderDate", type: "text" },
-        { title: "Payment", key: "payment", type: "text" },
-        { title: "Delivery", key: "delivery", type: "text" },
-        { title: "Email", key: "email", type: "text", validate: "required, email" }
+        { title: "Name", key: "name", type: "text", validate: "required, min(3)" },
+        { title: "Lead", key: "lead", type: "text" },
+        { title: "Type", key: "type", type: "text", validate: "required, max(25)" },
+        { title: "Client", key: "client", type: "text" },
+        { title: "Status", key: "status", type: "select", selects: ["Active", "Inactive"], validate: "required" },
+        { title: "Adding date", key: "addDate", type: "text" }
       ],
       formdata: {},
       defaultSortKey: "id",
       hiddenTable: true,
       show_modal: false,
-      selectedRow: null
     };
   },
 
@@ -73,9 +78,13 @@ export default {
     this.fetch();
   },
 
+  computed: {
+    ...mapState(["isSidebarVisible", "lastOpenedProjects"])
+  },
+
   methods: {
     fetch() {
-      http.get(config.getAllArhivedUrl).then(({ data }) => {
+      http.get(config.getAllProjectsUrl).then(({ data }) => {
         this.datas = data.items;
         this.hiddenTable = false;
       });
@@ -91,7 +100,14 @@ export default {
       this.formdata = JSON.parse(JSON.stringify(this.selectedRow));
       this.show_modal = true;
     },
+    openClick(selectedRows) {
+      for (var i = 0; i < selectedRows.length; i++) {
+        let row = selectedRows[i];
+        this.$store.commit('pushLastOpenedProjects', {id:row.id, name:row.name});
+      }
+    },
     deleteClick() {
+      this.$alertError('A törlés még nem működik!')
     },
     addClick() {
       this.formdata = {};
@@ -99,14 +115,29 @@ export default {
     },
     submitClick() {
       this.show_modal = false;
+      this.$alertSuccess('Sikeres elem felvétel!')
+    },
+    cellClick(key,value,row) {
+      if(key==='name') {
+        this.$store.commit('pushLastOpenedProjects', {id:row.id, name:row.name});
+        this.$router.push({ name: 'toproject', params: { id: row.id }});
+      }
     }
   }
 };
 </script>
 
-<style>
-.total {
-    color: green;
-    font-weight: 700;
+<style lang="scss" scoped>
+@import "../styles/colors.scss";
+
+.bold {
+    font-weight: 500;
+}
+.name-column {
+    font-weight: 500;
+    color: $blue;
+    &:hover {
+    text-decoration: underline;
+    }
 }
 </style>
