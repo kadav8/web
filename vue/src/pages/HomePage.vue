@@ -21,7 +21,11 @@
 import infobox from "../components/InfoBox.vue";
 
 export default {
-  components: { infobox }
+  components: { infobox },
+
+  created() {
+    this.$store.commit('setSidebarTitle', 'Dashboard');
+  },
 };
 </script>
 

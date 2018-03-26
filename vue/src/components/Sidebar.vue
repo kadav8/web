@@ -5,18 +5,23 @@
         <div class="sidebar-linktitle" @click="menuClick(item.path)">
           {{item.title}}
         </div>
-        <div :class="{'hidden': hiddableMenu && !openedMenus.includes(item.path), 'selected': selectedMenu===item.path+child.path}" v-for="child in item.children" :key="child.title">
+        <div :class="{'hidden': hiddableMenu && !openedMenus.includes(item.path), 'selected': sidebarTitle===child.title}" v-for="child in item.children" :key="child.title">
           <router-link :to="item.path+child.path">
-            <div class="sidebar-link" @click="selectedMenu=item.path+child.path">{{child.title}}</div>
+            <div class="sidebar-link">{{child.title}}</div>
           </router-link>
         </div>
       </div>
     </div>
+
+    
     <div class="lasts-wrapper">
-      <div v-show="selectedMenu==='/trackings/projects'" class="lasts-link" 
-      v-for="project in lastOpenedProjects" :key="project.id" @click="toProject(project.id)"> {{project.name}} </div>
-      <div v-show="selectedMenu==='/trackings/issues'" class="lasts-link" 
-      v-for="issue in lastOpenedIssues" :key="issue.id" @click="toIssue(issue.id)"> {{issue.name}} </div>
+      <div v-show="lastOpenedProjects.length > 0" class="sidebar-linktitle">Opened Projects</div>
+      <div class="lasts-link" 
+      v-for="project in lastOpenedProjects" :key="'p' + project.id" @click="toProject(project.id)"> {{project.name}} </div>
+      
+      <div v-show="lastOpenedIssues.length > 0" class="sidebar-linktitle">Opened Issues</div>
+      <div class="lasts-link" 
+      v-for="issue in lastOpenedIssues" :key="'i' + issue.id" @click="toIssue(issue.id)"> {{issue.name}} </div>
     </div>
   </div>
 </template>
@@ -39,41 +44,24 @@ export default {
           path: "/trackings",
           children: [
             { title: "Projects", path: "/projects" },
-            { title: "Issues", path: "/issues" }
+            { title: "Issues", path: "/issues", }
           ]
         },
         {
-          title: "Users",
-          path: "/users",
-          children: [{ title: "Admins", path: "/admins" }]
+          title: "People",
+          path: "/people",
+          children: [
+            { title: "Me", path: "/me" },
+            { title: "Users", path: "/users" }
+          ]
         }
       ],
-      openedMenus: [""],
-      selectedMenu: null,
-      selectedLink: null
+      openedMenus: [""]
     };
   },
 
-  mounted() {
-    let path = window.location.hash.substring(1);
-    let main = path.split("/")[1];
-    if (main === "") {
-      this.openedMenus.push(main);
-    } else {
-      this.openedMenus.push("/" + main);
-    }
-    this.selectedMenu = path;
-
-    if (this.selectedMenu.includes("trackings/project/")) {
-      this.selectedMenu = "/trackings/projects";
-    }
-    else if (this.selectedMenu.includes("trackings/issue/")) {
-      this.selectedMenu = "/trackings/issues";
-    }
-  },
-
   computed: {
-    ...mapState(["isSidebarVisible", "lastOpenedProjects", "lastOpenedIssues"])
+    ...mapState(["sidebarTitle", "isSidebarVisible", "lastOpenedProjects", "lastOpenedIssues"])
   },
 
   methods: {
@@ -114,6 +102,7 @@ export default {
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
+  //background-color: white;
 }
 
 .sidebar-link {
@@ -143,7 +132,6 @@ export default {
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  //color: $blue;
   font-weight: 400;
   &:hover {
     text-decoration: underline;

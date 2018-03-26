@@ -12,6 +12,10 @@ export default {
     };
   },
 
+  created() {
+    this.$store.commit('setSidebarTitle', 'Issues');
+  },
+
   mounted() {
     let path = window.location.hash.substring(1);
     let patharray = path.split("/");

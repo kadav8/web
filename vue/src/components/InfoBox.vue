@@ -23,7 +23,7 @@ export default {
 @import "../styles/colors.scss";
 
 .infobox {
-  background-color: $vlight-grey;
+  background-color: $vvligt-yellow;
   border: 1px solid $light-grey;
   padding: 20px;
   margin-right: 20px;

@@ -5,13 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    sidebarTitle: '',
     isSidebarVisible: true,
     notifications: [],
     lastOpenedProjects: [],
-    lastOpenedIssues: []
+    lastOpenedIssues: [],
   },
   
   mutations: {
+    setSidebarTitle(state, title) {
+      state.sidebarTitle = title;
+    },
     changeSidebarVisibility(state) {
       state.isSidebarVisible = !state.isSidebarVisible
     },
@@ -32,7 +36,7 @@ export default new Vuex.Store({
         if(state.lastOpenedProjects[i].id != project.id) {
           temp.push(state.lastOpenedProjects[i]);
         }
-        if(temp.length > 9) {
+        if(temp.length > 5) {
           break;
         }
       }
@@ -45,7 +49,7 @@ export default new Vuex.Store({
         if(state.lastOpenedIssues[i].id != project.id) {
           temp.push(state.lastOpenedIssues[i]);
         }
-        if(temp.length > 9) {
+        if(temp.length > 5) {
           break;
         }
       }

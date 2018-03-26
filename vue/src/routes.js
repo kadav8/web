@@ -5,7 +5,8 @@ export default [
   { path: '/trackings/issues', component: require('./pages/IssuesPage.vue') },
   { path: '/trackings/project/:id', name: "toproject", component: require('./pages/ProjectPage.vue') },
   { path: '/trackings/issue/:id', name: "toissue", component: require('./pages/IssuePage.vue') },
-  { path: '/users', redirect: 'users/admins' },
-  { path: '/users/admins', component: require('./pages/TodoPage.vue') },
+  { path: '/people', redirect: 'people/me' },
+  { path: '/people/me', component: require('./pages/MePage.vue') },
+  { path: '/people/users', component: require('./pages/UsersPage.vue') },
   { path: '*', redirect: '/' }
 ]

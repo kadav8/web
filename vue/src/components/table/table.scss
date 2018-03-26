@@ -2,12 +2,12 @@
 @import "../../styles/colors.scss";
 @import "../../styles/font-awesome/font-awesome.scss";
 
-$table-head-bgcolor: $vlight-grey;
+$table-head-bgcolor: $vvligt-yellow;
 $table-head-textcolor: $light-black;
 $table-border-color: $light-grey;
 $arrow-color: $grey;
 
-$table-header-height: 45px;
+$table-header-height: 30px;
 
 span {
     font-size: 14px;
@@ -59,6 +59,7 @@ select {
     margin-top: 10px;
     padding: 8px;
     border: 1px solid $table-border-color;
+    //background-color: $table-head-bgcolor; 
 }
 
 table {
@@ -73,16 +74,16 @@ table {
     }
 
     thead {
-        background-color: $table-head-bgcolor;
+        background-color: $table-head-bgcolor; 
         color: $table-head-textcolor;
         border-bottom: 1px solid $table-border-color;
-        font-size: 18px;
+        font-size: 14px;
         tr {
             height: $table-header-height;
-            border-right-color: $table-head-bgcolor;
+            border-right-color: rgba(250, 100, 0, 0); //todo: $table-head-bgcolor
             border-right-style: solid;
             th {
-                font-weight: 400;
+                font-weight: 700;
             }
         }
     }
@@ -107,7 +108,7 @@ table {
 
     th, td {
         text-align: left;
-        padding: 4px;
+        padding: 2px;
         white-space: nowrap;
         overflow: hidden;
     }
@@ -150,7 +151,7 @@ table {
 }
 
 .newbutton {
-    font-size: 18px;
+    font-size: 16px;
     padding: 3px 10px;
     cursor: pointer;
     color: $light-black;

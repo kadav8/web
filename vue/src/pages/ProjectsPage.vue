@@ -48,7 +48,7 @@ export default {
       headers: [
         { title: "Id", key: "id", width: "50px", prefix: '#' },
         { title: "Name", key: "name", bclasses: 'name-column' },
-        { title: "Lead", key: "lead", bclasses: 'bold' },
+        { title: "Lead", key: "lead" },
         { title: "Type", key: "type" },
         { title: "Client", key: "client" },
         { title: "Status", key: "status" },
@@ -75,6 +75,7 @@ export default {
   },
 
   created() {
+    this.$store.commit('setSidebarTitle', 'Projects');
     this.fetch();
   },
 

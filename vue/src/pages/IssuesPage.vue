@@ -57,7 +57,8 @@ export default {
       datas: [],
       filters: [
         { title: "Priority", key: "priority", selects: ["Low", "Medium", "High"] },
-        { title: "Status", key: "status", selects: ["Todo", "In Progress", "Under Review", "Done", "Cancelled"] }
+        { title: "Type", key: "type", selects: ["Bug", "New Feature"] },
+        { title: "Status", key: "status", selects: ["Todo", "In Progress", "Under Review", "Done", "Cancelled"] },
       ],
       formfields: [
         { title: "Id", key: "id", type: "text", validate: "required" },
@@ -78,6 +79,7 @@ export default {
   },
 
   created() {
+    this.$store.commit('setSidebarTitle', 'Issues');
     this.fetch();
   },
 

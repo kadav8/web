@@ -11,7 +11,8 @@ export default {
     deletable: Boolean,
     editable: Boolean,
     coloredStatus: Boolean,
-    clickableCells: Boolean
+    clickableCells: Boolean,
+    heightDiff: Number
   },
 
   data() {
@@ -28,7 +29,8 @@ export default {
       bodyHeight: null,
       scollbarWidth: 0,
       selectedRows: [],
-      selectedRowIds: []
+      selectedRowIds: [],
+      heightDifference: null
     };
   },
 
@@ -41,6 +43,7 @@ export default {
         this.filterData[this.filters[i].key] = "All";
       }
     }
+    this.heightDifference = this.heightDiff || 140;
   },
 
   beforeUpdate() {
@@ -129,7 +132,7 @@ export default {
       this.pageNumber = this.maxPage;
     },
     onResize() {
-      this.bodyHeight = this.$refs.tablepage.clientHeight - 155;
+      this.bodyHeight = this.$refs.tablepage.clientHeight - this.heightDifference;
     },
     onRowSelected(entry) {
       var id = entry.id;

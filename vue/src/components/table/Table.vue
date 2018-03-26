@@ -1,7 +1,7 @@
 <template>
-  <div class="maxheight unselectable" ref="tablepage">
+  <div class="table-wrapper maxheight unselectable" ref="tablepage">
 
-    <div v-show="datas.length > 0" class="search-container">
+    <div class="search-container">
       <span> Search: <input name="query" v-model="filterKey"> </span>
 
       <span v-for="item in filters" :key="item.key"> {{item.title}}:
@@ -12,7 +12,7 @@
       </span>
 
       <span style="float: right">
-        <button class="newbutton" @click="$emit('onAddClick')">Add</button>
+        <button class="newbutton resp2" @click="$emit('onAddClick')">Add</button>
       </span>
       <span v-show="selectable" style="float: right">
         <button class="newbutton" @click="selectAllRows">All</button>
