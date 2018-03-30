@@ -178,6 +178,10 @@ export default {
       } else {
         this.pageSize = Number(this.pageSizeText);
       }
+    },
+    datas() {
+      this.selectedRows = [];
+      this.selectedRowIds = [];
     }
   },
 

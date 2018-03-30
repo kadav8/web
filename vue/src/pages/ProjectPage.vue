@@ -1,34 +1,51 @@
 <template>
   <div class="app-container">
-    <progressbar v-show="hiddenTable"></progressbar>
+    <div class="info-container" v-show="!hiddenTable">
+      <div class="box">
+        <div style="padding-bottom: 5px;">
+          <span class="title">{{projectName}}</span>
+          ( id: {{projectId}} )
+        </div>
+        {{summary}}
+      </div>
 
-    <div class="info-container">
-      <div class="project-title">
-        <span class="project-name">{{projectName}}</span> ( id: {{projectId}} )</div>
-      <div>{{summary}}</div>
+      <div id="datas1" class="box">
+        <div>type: Business</div>
+        <div>client: Apple</div>
+        <div>status: Active</div>
+        <div>adding date: 2016/11/11</div>
+      </div>
 
-      <div><br></div>
-      <div>type: Business</div>
-      <div>client: Apple</div>
-      <div>status: Active</div>
-      <div>adding date: 2016/11/11</div>
+      <div id="datas2" class="box">
+        <div>issues: 200</div>
+        <div>opened issues: 33</div>
+        <div>active bug: 12</div>
+      </div>
 
-      <div><br></div>
-      <div>issues: 200</div>
-      <div>opened issues: 33</div>
-      <div>active bug: 12</div>
+      <div id="users" class="box">
+        <div class="title"> Users </div>
+        <div><span class="activity-name">Harry Potter</span> (Lead)</div>
+        <div class="activity-name">Hermione Granger</div>
+        <div class="activity-name">Ronald Weasley</div>
+      </div>
 
-      <div class="title"> Users </div>
-      <div><span class="activity-name">Harry Potter</span> (Lead)</div>
-      <div class="activity-name">Hermione Granger</div>
-      <div class="activity-name">Ronald Weasley</div>
+      <div id="act" class="box">
+        <div class="title"> Activity </div>
+        <div class="activity"><span class="activity-name">Harry Potter</span> started progress on <span class="activity-id">UNEDM-135</span></div>
+        <div class="activity"><span class="activity-name">Hermione Granger</span> started progress on <span class="activity-id">UNEDM-134</span></div>
+        <div class="activity"><span class="activity-name">Ronald Weasley</span> changed the Assignee to 'Kaszányi Dávid' on <span class="activity-id">UNEDM-136</span></div>
+        <div class="activity"><span class="activity-name">Harry Potter</span> started progress on <span class="activity-id">UNEDM-135</span></div>
+        <div class="activity"><span class="activity-name">Hermione Granger</span> started progress on <span class="activity-id">UNEDM-134</span></div>
+      </div>
 
-      <div class="title"> Activity </div>
-      <div class="activity"><span class="activity-name">Harry Potter</span> started progress on <span class="activity-id">UNEDM-135</span></div>
-      <div class="activity"><span class="activity-name">Hermione Granger</span> started progress on <span class="activity-id">UNEDM-134</span></div>
-      <div class="activity"><span class="activity-name">Ronald Weasley</span> changed the Assignee to 'Kaszányi Dávid' on <span class="activity-id">UNEDM-136</span></div>
-      <div class="activity"><span class="activity-name">Harry Potter</span> started progress on <span class="activity-id">UNEDM-135</span></div>
-      <div class="activity"><span class="activity-name">Hermione Granger</span> started progress on <span class="activity-id">UNEDM-134</span></div>
+      <div>
+        <span style="float: right; margin-left: 5px;">
+          <button class="small-btn blue-btn">Edit</button>
+        </span>
+        <span style="float: right">
+          <button class="small-btn blue-btn">Add Note</button>
+        </span>
+      </div>
     </div>
 
     <apptable class="apptable-smaller" 
@@ -66,12 +83,11 @@
 import { mapState } from "vuex";
 import http from "../http.js";
 import config from "../config.js";
-import progressbar from "../components/ProgressBar.vue";
 import apptable from "../components/table/Table.vue";
 import form_modal from "../components/FormModal.vue";
 
 export default {
-  components: { progressbar, apptable, form_modal },
+  components: { apptable, form_modal },
 
   data() {
     return {
@@ -84,7 +100,7 @@ export default {
         { title: "Priority", key: "priority" },
         { title: "Type", key: "type" },
         { title: "Status", key: "status" },
-        { title: "Adding Date", key: "addDate" }
+        { title: "Adding Date", key: "addDate", hclasses: "hide-date", bclasses: "hide-date" }
       ],
       datas: [],
       filters: [
@@ -127,16 +143,24 @@ export default {
 
   methods: {
     buildPage(id) {
+      console.log("Build project page: " + id);
+
+      this.hiddenTable = true;
+      this.formdata = {};
+      this.selectedRow = null;
       this.projectId = id;
-      this.projectName = "UNI-Disposal";
-      this.summary =
-        "A Unicredit Bank EDocManagement projektje során bevezetett imaging megoldás hatására a megfelelően digitalizált, és hitelesen archivált dokumentumok papír alapú példányai feleslegessé válnak. "
-        + " Az ilyen papír alapú dokumentumok megsemmisítéséhez igény keletkezett egy olyan támogató rendszerre, ami a szóban forgó papír alapú dokumentumok selejtezését támogatja. Ez a Disposal alkalmazás.";
+      
       http.get(config.getAllIssuesUrl).then(({ data }) => {
         this.datas = data.items;
         this.hiddenTable = false;
+        this.projectName = "UNI-Disposal";
+        this.summary =
+          "A Unicredit Bank EDocManagement projektje során bevezetett imaging megoldás hatására a megfelelően digitalizált, "
+          + "és hitelesen archivált dokumentumok papír alapú példányai feleslegessé válnak. "
+          + "Az ilyen papír alapú dokumentumok megsemmisítéséhez igény keletkezett egy olyan támogató rendszerre, "
+          + "ami a szóban forgó papír alapú dokumentumok selejtezését támogatja. Ez a Disposal alkalmazás.";
+          // TODO : this.$store.commit('pushLastOpenedProjects', {id:row.id, name:row.name});
       });
-      // TODO : this.$store.commit('pushLastOpenedProjects', {id:row.id, name:row.name});
     },
     rowClick(row, selectedRows) {
       if (selectedRows.length === 0) {
@@ -183,7 +207,7 @@ export default {
 
 <style lang="scss">
 @import "../styles/colors.scss";
-
+@import "../styles/buttons.scss";
 .name-column {
   font-weight: 500;
   color: $blue;
@@ -194,28 +218,21 @@ export default {
 .bold {
   font-weight: 500;
 }
-
 .info-container {
   font-size: 12px;
   width: 30%;
-  margin-bottom: 10px;
-  float: right;
-  max-height: 97%;
+  float: left;
+  max-height: 98%;
   overflow: auto;
-  padding-left: 1em;
 }
-
-.project-title {
-  padding-bottom: 5px;
-}
-.project-name {
-  font-size: 20px;
-  font-weight: 500;
+.box {
+  margin-bottom: 10px;
+  border: 1px solid $table-border-color;
+  padding: 8px;
 }
 .title {
   font-size: 20px;
   font-weight: 500;
-  padding-top: 20px;
   padding-bottom: 5px;
 }
 .activity {
@@ -228,10 +245,55 @@ export default {
 .activity-id {
   color: $blue;
 }
-
 .apptable-smaller {
   width: 70%;
-  float: left;
-  //padding-left: 1em;
+  float: right;
+  padding-left: 1em;
+}
+
+@media screen and (max-width: 1320px) {
+  .info-container {
+     width: 100%;
+     padding-bottom: 1em;
+  }
+  .apptable-smaller {
+    width: 100%;
+    padding-left: 0em;
+  }
+}
+@media screen and (max-width: 300px) {
+  .info-container {
+    display: none;
+  }
+}
+@media screen and (max-height: 750px) {
+  #datas1, #datas2 {
+    display: none;
+  }
+}
+@media screen and (max-height: 560px) {
+  #act {
+    display: none;
+  }
+}
+@media screen and (max-height: 350px) {
+  #users {
+    display: none;
+  }
+}
+@media screen and (max-height: 300px) {
+  .info-container {
+    display: none;
+  }
+  .apptable-smaller {
+    width: 100%;
+    padding-left: 0em;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .hide-date {
+      display: none;
+  }
 }
 </style>

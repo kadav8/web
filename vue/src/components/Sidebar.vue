@@ -2,7 +2,7 @@
   <div class="app-sidebar unselectable" :class="{'hidden-sidebar': !isSidebarVisible}">
     <div class="sidebar-wrapper">
       <div v-for="item in menuitems" :key="item.title">
-        <div class="sidebar-linktitle" @click="menuClick(item.path)">
+        <div v-show="linksTitle" class="sidebar-linktitle" @click="menuClick(item.path)">
           {{item.title}}
         </div>
         <div :class="{'hidden': hiddableMenu && !openedMenus.includes(item.path), 'selected': sidebarTitle===child.title}" v-for="child in item.children" :key="child.title">
@@ -12,8 +12,6 @@
         </div>
       </div>
     </div>
-
-    
     <div class="lasts-wrapper">
       <div v-show="lastOpenedProjects.length > 0" class="sidebar-linktitle">Opened Projects</div>
       <div class="lasts-link" 
@@ -33,9 +31,9 @@ export default {
   data() {
     return {
       hiddableMenu: false,
+      linksTitle: false,
       menuitems: [
-        {
-          title: "Home",
+        { title: "Home",
           path: "",
           children: [{ title: "Dashboard", path: "/" }]
         },
@@ -51,12 +49,12 @@ export default {
           title: "People",
           path: "/people",
           children: [
-            { title: "Me", path: "/me" },
             { title: "Users", path: "/users" }
           ]
         }
       ],
-      openedMenus: [""]
+      openedMenus: [""],
+      resize: false
     };
   },
 
@@ -66,7 +64,7 @@ export default {
 
   methods: {
     menuClick(input) {
-      if (this.hiddableMenu) {
+      if (this.hiddableMenu && this.linksTitle) {
         if (this.openedMenus.includes(input)) {
           this.openedMenus = this.openedMenus.filter(title => title != input);
         } else {
@@ -79,7 +77,7 @@ export default {
     },
     toIssue(id) {
       this.$router.push({ name: "toissue", params: { id: id } });
-    }
+    },
   }
 };
 </script>
@@ -90,6 +88,7 @@ export default {
 .app-sidebar {
   border-right: 1px solid $sidebar-bordercolor;
   white-space: nowrap;
+  background-color: white;
 }
 
 .hidden-sidebar {
@@ -102,7 +101,6 @@ export default {
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
-  //background-color: white;
 }
 
 .sidebar-link {
@@ -114,16 +112,16 @@ export default {
   font-weight: 400;
   cursor: pointer;
   &:hover {
-    background-color: $vlight-grey;
+    background-color: $sidebar-hovercolor;
   }
 }
 
 .selected {
-  background-color: $vligt-yellow;
+  background-color: $sidebar-selectedcolor;
 }
 
 .lasts-wrapper {
-  background-color: $vvligt-yellow;
+  background-color: $sidebar-lastscolor;
 }
 
 .lasts-link {

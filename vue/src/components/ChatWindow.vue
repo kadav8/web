@@ -1,6 +1,6 @@
 <template>
   <div class="chat-wrapper" :class="{ 'shorter-wrapper': !showContent }">
-    <div class="chat-header" @click="showContent=!showContent">
+    <div class="chat-header unselectable" @click="showContent=!showContent">
       {{headerText}}
     </div>
     <div class="chat-content" v-show="showContent">
@@ -63,6 +63,21 @@ export default {
   z-index: 8888;
   border: 1px solid $light-grey;
   border-radius: 4px 4px 0px 0px;
+}
+@media screen and (max-width: 600px) {
+  .chat-wrapper {
+    width: 300px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .chat-wrapper {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 325px) {
+  .chat-wrapper {
+    display: none;
+  }
 }
 
 .shorter-wrapper {

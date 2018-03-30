@@ -1,5 +1,5 @@
 <template>
-  <div class="app-header">
+  <div class="app-header unselectable">
     <div class="app-header-element">
       <button class="hamburger-button" @click="changeSidebarVisibility">☰</button>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="notifications-wrapper">
+  <div class="notifications-wrapper unselectable">
     <transition-group name="slide-fade" tag="div">
       <div :class="item.type" role="alert" :key="index" v-for="(item, index) in notifications" @click="hide(item)">
         <span> {{item.message}} </span>

@@ -1,7 +1,5 @@
 <template>
   <div class="app-container">
-    <progressbar v-show="hiddenTable"></progressbar>
-
     <apptable 
       v-show="!hiddenTable" 
       :headers="headers" 
@@ -35,12 +33,11 @@
 <script>
 import http from "../http.js";
 import config from "../config.js";
-import progressbar from "../components/ProgressBar.vue";
 import apptable from "../components/table/Table.vue";
 import form_modal from "../components/FormModal.vue";
 
 export default {
-  components: { progressbar, apptable, form_modal },
+  components: { apptable, form_modal },
 
   data() {
     return {

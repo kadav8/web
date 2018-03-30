@@ -15,17 +15,3 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
-
-Vue.prototype.$alertSuccess = function (msg) {
-  store.commit('pushNotification', {
-    message: msg,
-    type: 'alert-success'
-  })
-}
-
-Vue.prototype.$alertError = function (msg) {
-  store.commit('pushNotification', {
-    message: msg,
-    type: 'alert-error'
-  })
-}
