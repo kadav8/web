@@ -3,7 +3,7 @@
     <div class="modal-content">
       <form v-for="(field, index) in fields" :key="index">
         <div class="form-group">
-          <input v-show="field.type!='select'" type="field.type" required="required" v-model="formdata[field.key]" />
+          <input v-show="field.type!='select'" type="field.type" required="required" v-model="formdata[field.key]" :disabled="!isNew && field.disabled"/>
           <select v-show="field.type==='select'" v-model="formdata[field.key]">
             <option v-for="(s,i) in field.selects" :key="i">{{s}}</option>
           </select>
@@ -17,6 +17,9 @@
         <button class="yellow-btn small-btn" type="button" @click="submit">
           <span>Submit</span>
         </button>
+        <button v-show="!isNew" class="yellow-btn small-btn" type="button" @click="deletec">
+          <span>Delete</span>
+        </button>
         <button class="yellow-btn small-btn" type="button" @click="cancel">
           <span>Cancel</span>
         </button>
@@ -29,7 +32,8 @@
 export default {
   props: {
     fields: Array,
-    formdata: Object
+    formdata: Object,
+    isNew: Boolean
   },
 
   data() {
@@ -45,6 +49,11 @@ export default {
       if (this.isAllValid) {
         this.$emit("onSubmitClick", this.formdata);
       }
+    },
+    deletec() {
+      this.validation = {};
+      this.isAllValid = true;
+      this.$emit("onDeleteClick", this.formdata.documentId);
     },
     cancel() {
       this.validation = {};
@@ -105,6 +114,10 @@ function validateEmail(email) {
 <style lang="scss" scoped>
 @import "../styles/form-modal.scss";
 @import "../styles/buttons.scss";
+
+input {
+  color: black !important;
+}
 
 .modal {
   position: fixed;

@@ -28,7 +28,8 @@
     "watchify": "^3.11.0",
     "font-awesome": "^4.7.0",
     "sockjs-client": "^1.1.4",
-    "stompjs": "^2.3.3"
+    "stompjs": "^2.3.3",
+    "moment": "^2.22.1"
   },
   "browserify": {
     "transform": [

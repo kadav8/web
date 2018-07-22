@@ -40,7 +40,7 @@ export default {
         { title: "Title", key: "title" },
         { title: "Version", key: "version" },
         { title: "CreationDate", key: "creationDate", date: "true" },
-        { title: "LastModificationDate", key: "lastModificationDate", date: "true" },
+        { title: "LastModificationDate", key: "lastModificationDate", date: "true"},
       ],
       datas: [],
       formfields: [
@@ -59,7 +59,7 @@ export default {
   },
 
   created() {
-    http.get(config.getMongoDocument).then(({ data }) => {
+    http.get(config.getSqlDocument).then(({ data }) => {
         this.datas = data;
         this.hiddenTable = false;
     });
@@ -78,9 +78,9 @@ export default {
     },
     deleteClick(id) {
       this.show_modal = false;
-      http.get(config.deleteMongoDocument + id).then(({ data }) => {
+      http.get(config.deleteSqlDocument + id).then(({ data }) => {
         // TODO
-        http.get(config.getMongoDocument).then(({ data }) => {
+        http.get(config.getSqlDocument).then(({ data }) => {
           this.datas = data;
         });
       });
@@ -88,13 +88,13 @@ export default {
     submitClick() {
       this.show_modal = false;
       if(this.isnew) {
-        http.post(config.saveMongoDocument, this.formdata).then(({ data }) => {
+        http.post(config.saveSqlDocument, this.formdata).then(({ data }) => {
           this.datas.push(data);
         });
       } else {
-        http.post(config.updateMongoDocument, this.formdata).then(({ data }) => {
+        http.post(config.updateSqlDocument, this.formdata).then(({ data }) => {
           // TODO
-          http.get(config.getMongoDocument).then(({ data }) => {
+          http.get(config.getSqlDocument).then(({ data }) => {
             this.datas = data;
           });
         });

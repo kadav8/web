@@ -31,7 +31,10 @@
               >
             <td v-for="header in headers" :key="header.key" :style="{ width: header.width }" :class=header.bclasses>
               <span @click="cellClick(header.key, entry[header.key], entry)">
-                {{ header.prefix }}{{ entry[header.key] }}{{ header.postfix }}
+                {{ header.prefix }}                
+                <span v-if="!header.date">{{ entry[header.key] }}</span>
+                <span v-if="header.date">{{ entry[header.key]  | formatDate }}</span>
+                {{ header.postfix }}
               </span>  
             </td>
           </tr>

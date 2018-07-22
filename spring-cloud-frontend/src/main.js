@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import routes from './routes.js'
 import store from './store.js'
+import moment from 'moment'
 
 Vue.use(VueRouter)
 
@@ -14,4 +15,10 @@ new Vue({
   }),
   template: '<App/>',
   components: { App }
+})
+
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value)).format('YYYY-MM-DD h:mm:ss a')
+  }
 })

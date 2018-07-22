@@ -124,7 +124,10 @@ table {
     .datarow {
         &:hover {
             background-color: $table-hover-color;
-        }
+            .nohover {
+                background-color: white;
+            }
+        }   
     }
 
     .selectedRow {

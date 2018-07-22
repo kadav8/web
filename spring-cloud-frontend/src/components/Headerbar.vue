@@ -4,10 +4,7 @@
       <span class="link" @click="$router.push('/')">Mongo</span>
     </div>
     <div class="header-button">
-      <span class="link" @click="$router.push('/redis')">Redis</span>
-    </div>
-    <div class="header-button">
-      <span class="link" @click="$router.push('/rdb')">RDB</span>
+      <span class="link" @click="$router.push('/sql')">SQL</span>
     </div>
   </div>
 </template>
